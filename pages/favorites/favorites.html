@@ -1,0 +1,65 @@
+<User Name: <br/>
+    <input type="text" id="userName"/><br/>
+    Password:<br/>
+    <input type="text" id="password"/><br/>
+    First Name:<br/>
+    <input type="text" id="firstName"/><br/>
+    Last Name:<br/>
+    <input type="text" id="lastName"/><br/>
+    Email:<br/>
+    <input type="text" id="email"/><br/>
+    Birth Date:<br/>
+    <input type="date" id="birthDate"/><br/>
+    <div style="margin-left:140px;"><input type="submit" name="submit" value="Submit" id="submit"/>
+
+        <script>
+            $('#submit').click(function (e) {
+                let isValid = true;
+                $('#userName,#password,#firstName,#lastName,#email,#birthDate').each(function () {
+                    if ($.trim($(this).val()) === '') {
+                        if (isValid)
+                            alert("There are empty fields!");
+                        isValid = false;
+                        $(this).css({
+                            "border": "1px solid red",
+                            "background": "#FFCECE"
+                        });
+                    } else {
+                        $(this).css({
+                            "border": "",
+                            "background": ""
+                        });
+                    }
+                });
+                let passReg = "^(?=.*[A-Za-z])(?=.*[0-9])[A-Za-z0-9]+$";
+                let password = $('input[id="password"]').val();
+                if (password.length !== 0 && password.length < 8) {
+                    alert('password must be at least 8 characters');
+                    isValid = false;
+                }
+                if (isValid && password.length !== 0 && !password.match(passReg)) { //!passReg.test(password)//) {
+                    alert('password should contain numbers and letters');
+                    isValid = false;
+                }
+                let nameReg = /[a-zA-Z]+$/;
+                let firstName = $('input[id="firstName"]').val(),
+                    lastName = $('input[id="lastName"]').val();
+                if ((firstName.length > 0 && !nameReg.test(firstName)) || (lastName.length > 0 && !nameReg.test(lastName))) {
+                    alert('Please enter a valid name (without numbers or other signs)');
+                    isValid = false;
+                }
+                let email = $('input[id="email"]').val(),
+                    emailReg = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                if (email.length !== 0 && !emailReg.test(email)) {
+                    alert('Please enter a valid email address.');
+                    isValid = false;
+                }
+                if (isValid === false)
+                    e.preventDefault();
+                else {
+                    register($('#userName').val(), $('#password').val(), $('#firstName').val(), $('#lastName').val(), $('#birthDate').val())
+                }
+            });
+        </script>
+    </div>
+</div>
