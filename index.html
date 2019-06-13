@@ -1,6 +1,7 @@
 <html>
     <head>
-        <title>My Website</title>
+        <title>Travel</title>
+        <link rel="stylesheet" type="text/css" href="style.css" />
     </head>
     <body ng-app="myApp">
         <!-- load angular -->
@@ -11,13 +12,37 @@
         <script src="app.js"></script>
 
         <!-- load controllers -->
+        <script src="pages/homeGuests/homeGuestsController.js"></script>
+        <script src="pages/homeUsers/homeUsersController.js"></script>
         <script src="pages/about/aboutController.js"></script>
+        <script src="pages/about/aboutController.js"></script>
+        <script src="pages/login/loginController.js"></script>
+        <script src="pages/register/registerController.js"></script>
+        <script src="pages/favorites/favoritesController.js"></script>
         <script src="pages/poi/poiController.js"></script>
-        <script src="pages/http/httpController.js"></script>
+        <script src="pages/about/aboutController.js"></script>
 
         <!-- the website -->
+<<<<<<< HEAD
         <h1>My Website</h1>
 
+=======
+        <div class="navbar">
+            <a href="#!home">Home|</a>
+            <a href="#!login">Login|</a>
+            <a href="#!register">Register|</a>
+            <a href="#!favorites">Favorites|</a>
+            <a href="#!poi">POI|</a>
+            <a href="#!about">About|</a>
+            <a href="#!logout">Log Out|</a> 
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+>>>>>>> 5c5288c3581bfb24cf731821078eca0adf87ff16
         <!-- This section changes as the hashbang changes -->
         <div ng-view></div>
     </body>
