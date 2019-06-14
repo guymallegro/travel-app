@@ -15,6 +15,9 @@ app.config(function($routeProvider,$windowProvider)  {
             templateUrl: function() {
                 return newUser == true ? 'pages/homeGuests/homeGuests.html' : 'pages/homeUsers/homeUsers.html';
               },
+            controller: function() {
+                return newUser == true ? 'homeGuestsController as abtCtrl' : 'homeUsersController as abtCtrl';
+              },
 
         })
         .when('/homeGuests', {
@@ -32,6 +35,11 @@ app.config(function($routeProvider,$windowProvider)  {
             // this is a template url
             templateUrl: 'pages/about/about.html',
             controller : 'aboutController as abtCtrl'
+        })
+        .when('/forgotPassword', {
+            // this is a template url
+            templateUrl: 'pages/forgotPassword/forgotPassword.html',
+            controller : 'forgotPasswordController as abtCtrl'
         })
         // poi
         .when('/poi', {
