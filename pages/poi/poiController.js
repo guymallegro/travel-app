@@ -4,6 +4,8 @@ angular.module("myApp")
         result = response.data;
         result.forEach(clean);
         $scope.pois = result;
+        $scope.reverse = true;
+        $scope.propertyName = 'poiName';
         
     }).catch(function(response) {
       console.error('Error occurred:', response.status, response.data);
@@ -23,6 +25,11 @@ angular.module("myApp")
         return function( item ) {
           return !categoryFilter || item.category === categoryFilter;
         };
+      };
+
+      $scope.sortBy = function(propertyName) {
+        $scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
+        $scope.propertyName = propertyName;
       };
 });
 app.filter('unique', function () {

@@ -1,12 +1,31 @@
 let app = angular.module('myApp', ["ngRoute"]);
 
 // config routes
-app.config(function($routeProvider)  {
+app.config(function($routeProvider,$windowProvider)  {
+    var $window = $windowProvider.$get();
+    if($window.localStorage.getItem('vacation-token')){
+        newUser=false;
+    }
+    else{
+        newUser=true;
+    }
     $routeProvider
         // homepage
         .when('/', {
+            templateUrl: function(params) {
+                return newUser == true ? 'pages/homeGuests/homeGuests.html' : 'pages/homeUsers/homeUsers.html';
+              },
+
+        })
+        .when('/homeGuests', {
             // this is a template
-            template: '<h1>This is the default route</h1>'
+            templateUrl: 'pages/homeGuests/homeGuests.html',
+            controller : 'homeGuestsController as abtCtrl'
+        })
+        .when('/homeUsers', {
+            // this is a template
+            templateUrl: 'pages/homeUsers/homeUsers.html',
+            controller : 'homeUsersController as abtCtrl'
         })
         // about
         .when('/about', {
@@ -18,10 +37,13 @@ app.config(function($routeProvider)  {
         .when('/poi', {
             templateUrl: 'pages/poi/poi.html',
             controller : 'poiController as poiCtrl'
+        }).when('/login', {
+            templateUrl: 'pages/login/login.html',
+            controller : 'loginController as poiCtrl'
         })
-        .when('/httpRequest', {
-            templateUrl: 'pages/http/request.html',
-            controller : 'httpController as httpCtrl'
+        .when('/register', {
+            templateUrl: 'pages/register/register.html',
+            controller : 'registerController as poiCtrl'
         })
         // other
         .otherwise({ redirectTo: '/' });

@@ -32,17 +32,23 @@
   background-color: rgb(163, 41, 39);
   color: white;
 }
+
+select {
+        width: 10% !important;
+        margin: 10px;
+    }
 </style>
 </head>
 <body>
   <div id="selectCategory">
   <p>Category :</p>
-    <select class="form-control" ng-model="categoryFilter">
+    <select class="form-control" ng-model="categoryFilter" width="10%">
             <option value="">All</option>
             <option 
                 ng-repeat="poi in pois | unique: 'category'" 
                 value="{{poi.category}}">{{poi.category}}</option>
     </select>
+    <button ng-click="sortBy('rank')">Sort by rank</button>
   </div>
   <table width="100%" class="table" id="poi">
     <thead>
@@ -54,7 +60,7 @@
      </tr>
     </thead>
     <tbody>
-     <tr ng-repeat="poi in pois | filter:predicate(categoryFilter)">
+     <tr ng-repeat="poi in pois | orderBy:propertyName:reverse | filter:predicate(categoryFilter)">
       <td ng-repeat="cell in poi">{{cell}}</td>
      </tr>
     </tbody>
