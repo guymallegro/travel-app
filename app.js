@@ -12,7 +12,7 @@ app.config(function($routeProvider,$windowProvider)  {
     $routeProvider
         // homepage
         .when('/', {
-            templateUrl: function(params) {
+            templateUrl: function() {
                 return newUser == true ? 'pages/homeGuests/homeGuests.html' : 'pages/homeUsers/homeUsers.html';
               },
 
