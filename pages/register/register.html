@@ -1,31 +1,81 @@
 <div class="col-md-6 col-md-offset-3">
         <h2>Register</h2>
         <form name="form" ng-submit="vm.register()" role="form">
-            <div class="form-group" ng-class="{ 'has-error': form.firstName.$dirty && form.firstName.$error.required }">
-                <label for="username">First name</label>
-                <input type="text" name="firstName" id="firstName" class="form-control" ng-model="vm.user.firstName" required />
-                <span ng-show="form.firstName.$dirty && form.firstName.$error.required" class="help-block">First name is required</span>
-            </div>
-            <div class="form-group" ng-class="{ 'has-error': form.lastName.$dirty && form.lastName.$error.required }">
-                <label for="username">Last name</label>
-                <input type="text" name="lastName" id="Text1" class="form-control" ng-model="vm.user.lastName" required />
-                <span ng-show="form.lastName.$dirty && form.lastName.$error.required" class="help-block">Last name is required</span>
-            </div>
-            <div class="form-group" ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }">
-                <label for="username">Username</label>
-                <input type="text" name="username" id="username" class="form-control" ng-model="vm.user.username" required />
-                <span ng-show="form.username.$dirty && form.username.$error.required" class="help-block">Username is required</span>
+            <div class="form-group" ng-class="{ 'has-error': form.userName.$dirty && form.userName.$error.required }">
+                <label for="username">User Name</label>
+                <input type="text" name="userName" id="userName" class="form-control" ng-model="vm.user.userName" required />
             </div>
             <div class="form-group" ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }">
-                <label for="password">Password</label>
-                <input type="password" name="password" id="password" class="form-control" ng-model="vm.user.password" required />
-                <span ng-show="form.password.$dirty && form.password.$error.required" class="help-block">Password is required</span>
+                    <label for="password">Password</label>
+                    <input type="text" name="password" id="password" class="form-control" ng-model="vm.user.password" required />
+                </div>
+            <div class="form-group" ng-class="{ 'has-error': form.firstName.$dirty && form.firstName.$error.required }">
+                <label for="firstName">First Name</label>
+                <input type="text" name="firstName" id="firstName" class="form-control" ng-model="vm.user.firstName" required />
             </div>
+            <div class="form-group" ng-class="{ 'has-error': form.lastName.$dirty && form.lastName.$error.required }">
+                <label for="lastName">Last Name</label>
+                <input type="text" name="lastName" id="lastName" class="form-control" ng-model="vm.user.lastName" required />
+            </div>
+            <div class="form-group" ng-class="{ 'has-error': form.country.$dirty && form.country.$error.required }">
+                <label for="country">Country</label>
+                <select type="country" name="country" id="country" class="form-control" ng-model="vm.user.country" required />
+                <option 
+                ng-repeat="country in countries" 
+                value="{{country}}">{{country}}</option>
+            </select>
+            </div>
+            <div class="form-group" ng-class="{ 'has-error': form.city.$dirty && form.city.$error.required }">
+                    <label for="city">City</label>
+                    <input type="text" name="city" id="city" class="form-control" ng-model="vm.user.city" required />
+                </div>
+            <div class="form-group" ng-class="{ 'has-error': form.email.$dirty && form.email.$error.required }">
+                        <label for="email">Email</label>
+                        <input type="text" name="email" id="email" class="form-control" ng-model="vm.user.email" required />
+            </div>
+            <div class="form-group" ng-class="{ 'has-error': form.firstQuestion.$dirty && form.firstQuestion.$error.required }">
+                    <label for="firstQuestion">First Question</label>
+                    <select type="firstQuestion" name="firstQuestion" id="firstQuestion" class="form-control" ng-model="vm.user.firstQuestion" required />
+                    <option 
+                    ng-repeat="question in firstQuestions" 
+                    value="{{question}}">{{question}}</option>
+                </select>
+            </div>
+            <div class="form-group" ng-class="{ 'has-error': form.firstAnswer.$dirty && form.firstAnswer.$error.required }">
+                    <label for="firstAnswer">First Answer</label>
+                    <input type="text" name="firstAnswer" id="firstAnswer" class="form-control" ng-model="vm.user.firstAnswer" required />
+        </div>
+            <div class="form-group" ng-class="{ 'has-error': form.secondQuestion.$dirty && form.secondQuestion.$error.required }">
+                    <label for="secondQuestion">Second Question</label>
+                    <select type="secondQuestion" name="secondQuestion" id="secondQuestion" class="form-control" ng-model="vm.user.secondQuestion" required />
+                    <option 
+                    ng-repeat="question in secondQuestions" 
+                    value="{{question}}">{{question}}</option>
+                </select>
+            </div>
+            <div class="form-group" ng-class="{ 'has-error': form.secondAnswer.$dirty && form.secondAnswer.$error.required }">
+                    <label for="secondAnswer">Second Answer</label>
+                    <input type="text" name="secondAnswer" id="secondAnswer" class="form-control" ng-model="vm.user.secondAnswer" required />
+        </div>
+        <div class="form-group" ng-class="{ 'has-error': form.firstInterest.$dirty && form.firstInterest.$error.required }">
+                <label for="firstInterest">First Interest</label>
+                <select type="firstInterest" name="firstInterest" id="firstInterest" class="form-control" ng-model="vm.user.firstInterest" required />
+                <option 
+                ng-repeat="interest in interests" 
+                value="{{interest.categoryName}}">{{interest.categoryName}}</option>
+            </select>
+            </div>
+            <div class="form-group" ng-class="{ 'has-error': form.secondInterest.$dirty && form.secondInterest.$error.required }">
+                    <label for="secondInterest">Second Interest</label>
+                    <select type="secondInterest" name="secondInterest" id="secondInterest" class="form-control" ng-model="vm.user.secondInterest" required />
+                    <option 
+                    ng-repeat="interest in interests" 
+                    value="{{interest.categoryName}}">{{interest.categoryName}}</option>
+                </select>
+                </div>
             <div class="form-actions">
-                <button type="submit" ng-disabled="form.$invalid || vm.dataLoading" class="btn btn-primary">Register</button>
-                <img ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                <button type="submit" ng-disabled="form.$invalid || vm.dataLoading" ng-click="register(vm.user.userName,vm.user.password,vm.user.firstName,vm.user.lastName,vm.user.country,vm.user.city, vm.user.email, vm.user.firstQuestion, vm.user.secondQuestion, vm.user.firstAnswer, vm.user.secondAnswer,vm.user.firstInterest, vm.user.secondInterest)" class="btn btn-primary">Register</button>
                 <a href="#!/login" class="btn btn-link">Cancel</a>
             </div>
         </form>
     </div>
-    
