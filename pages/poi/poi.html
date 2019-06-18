@@ -2,11 +2,22 @@
 <html>
 <head>
 <style>
+
+.table{
+  margin-left: auto;
+  margin-right: auto;
+}
+
 #poi {
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
   border-collapse: collapse;
-  width: 100%;
+  width: 50%;
 }
+select {
+display: block;
+margin: 0 auto;
+}
+
 
 #poi td, #poi th {
   border: 1px solid #ddd;
@@ -23,20 +34,24 @@
 
 #poi tr:nth-child(even){background-color: #f2f2f2;}
 
-#poi tr:hover {background-color: #ddd;}
+#poi tr:hover {
+  cursor: pointer;
+  background-color: #ddd;}
 
 #poi th {
   padding-top: 12px;
-  padding-bottom: 12px;
+  padding-bottom: 8px;
   text-align: left;
   background-color: rgb(163, 41, 39);
   color: white;
+  cursor: pointer;
 }
 
 select {
         width: 10% !important;
-        margin: 10px;
+        margin: 0 auto;
     }
+    
 </style>
 </head>
 <body>
@@ -53,16 +68,21 @@ select {
   <table width="100%" class="table" id="poi">
     <thead>
      <tr>
-      <th>Name</th>
-      <th>Category</th>
-      <th>Views</th>
-      <th>Rank</th>
+      <th ng-click="sortBy('poiName')">Name</th>
+      <th ng-click="sortBy('category')">Category</th>
+      <th ng-click="sortBy('watchedAmount')">Views</th>
+      <th ng-click="sortBy('rank')">Rank</th>
+      <th>Favorites</th> 
      </tr>
     </thead>
     <tbody>
      <tr ng-repeat="poi in pois | orderBy:propertyName:reverse | filter:predicate(categoryFilter)">
-      <td ng-repeat="cell in poi">{{cell}}</td>
+      <td ng-repeat="cell in poi" ng-click="openPOIPage(poi)">{{cell}}</td>
+      <td ng-model="favorite" class={{favorite}} ng-click="manageFavorites(poi)"></td>
      </tr>
+     <!-- <tr ng-repeat="poi in pois"></tr>
+      <td><a href="ng-click=sortBy('poiName')"></a></td>
+     </tr> -->
     </tbody>
    </table>
 

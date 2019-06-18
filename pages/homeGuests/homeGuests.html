@@ -9,7 +9,7 @@
         <p>Here are three popular points of interest : </p>
             <div ng-repeat="point in threeRandomPoints">
                 <p>A {{point.poiName}}</p>
-                <img src={{point.image}} alt="Italian Trulli">
+                <img ng-src="{{point.image}}" alt="Italian Trulli">
             </div>
         </div>
 </div>

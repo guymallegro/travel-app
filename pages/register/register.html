@@ -19,11 +19,7 @@
             </div>
             <div class="form-group" ng-class="{ 'has-error': form.country.$dirty && form.country.$error.required }">
                 <label for="country">Country</label>
-                <select type="country" name="country" id="country" class="form-control" ng-model="vm.user.country" required />
-                <option 
-                ng-repeat="country in countries" 
-                value="{{country}}">{{country}}</option>
-            </select>
+                <select type="country" ng-options="country for country in countries" name="country" id="country" class="form-control" ng-model="vm.user.country" required></select>
             </div>
             <div class="form-group" ng-class="{ 'has-error': form.city.$dirty && form.city.$error.required }">
                     <label for="city">City</label>
@@ -35,11 +31,7 @@
             </div>
             <div class="form-group" ng-class="{ 'has-error': form.firstQuestion.$dirty && form.firstQuestion.$error.required }">
                     <label for="firstQuestion">First Question</label>
-                    <select type="firstQuestion" name="firstQuestion" id="firstQuestion" class="form-control" ng-model="vm.user.firstQuestion" required />
-                    <option 
-                    ng-repeat="question in firstQuestions" 
-                    value="{{question}}">{{question}}</option>
-                </select>
+                    <select type="firstQuestion" ng-options="firstQuestion for firstQuestion in firstQuestions" name="firstQuestion" id="firstQuestion" class="form-control" ng-model="vm.user.firstQuestion" required></select>
             </div>
             <div class="form-group" ng-class="{ 'has-error': form.firstAnswer.$dirty && form.firstAnswer.$error.required }">
                     <label for="firstAnswer">First Answer</label>
@@ -47,10 +39,7 @@
         </div>
             <div class="form-group" ng-class="{ 'has-error': form.secondQuestion.$dirty && form.secondQuestion.$error.required }">
                     <label for="secondQuestion">Second Question</label>
-                    <select type="secondQuestion" name="secondQuestion" id="secondQuestion" class="form-control" ng-model="vm.user.secondQuestion" required />
-                    <option 
-                    ng-repeat="question in secondQuestions" 
-                    value="{{question}}">{{question}}</option>
+                    <select type="secondQuestion" ng-options="secondQuestion for secondQuestion in secondQuestions" name="secondQuestion" id="secondQuestion" class="form-control" ng-model="vm.user.secondQuestion" required>
                 </select>
             </div>
             <div class="form-group" ng-class="{ 'has-error': form.secondAnswer.$dirty && form.secondAnswer.$error.required }">
@@ -59,18 +48,12 @@
         </div>
         <div class="form-group" ng-class="{ 'has-error': form.firstInterest.$dirty && form.firstInterest.$error.required }">
                 <label for="firstInterest">First Interest</label>
-                <select type="firstInterest" name="firstInterest" id="firstInterest" class="form-control" ng-model="vm.user.firstInterest" required />
-                <option 
-                ng-repeat="interest in interests" 
-                value="{{interest.categoryName}}">{{interest.categoryName}}</option>
+                <select type="firstInterest" ng-options="interest.categoryName for interest in interests" name="firstInterest" id="firstInterest" class="form-control" ng-model="vm.user.firstInterest" required />
             </select>
             </div>
             <div class="form-group" ng-class="{ 'has-error': form.secondInterest.$dirty && form.secondInterest.$error.required }">
                     <label for="secondInterest">Second Interest</label>
-                    <select type="secondInterest" name="secondInterest" id="secondInterest" class="form-control" ng-model="vm.user.secondInterest" required />
-                    <option 
-                    ng-repeat="interest in interests" 
-                    value="{{interest.categoryName}}">{{interest.categoryName}}</option>
+                    <select type="secondInterest" ng-options="interest.categoryName for interest in interests" name="secondInterest" id="secondInterest" class="form-control" ng-model="vm.user.secondInterest" required>
                 </select>
                 </div>
             <div class="form-actions">
