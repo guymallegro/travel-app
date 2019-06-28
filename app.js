@@ -4,21 +4,20 @@ let app = angular.module('myApp', ["ngRoute"]);
 app.config(function($routeProvider,$windowProvider)  {
     var $window = $windowProvider.$get();
     if($window.sessionStorage.getItem('vacation-token')){
-        newUser=false;
+        newUser=true;
     }
     else{
-        newUser=true;
+        newUser=false;
     }
 
     $routeProvider
         .when('/', {
             templateUrl: function() {
-                return newUser == true ? 'pages/homeGuests/homeGuests.html' : 'pages/homeUsers/homeUsers.html';
+                return newUser == false ? 'pages/homeGuests/homeGuests.html' : 'pages/homeUsers/homeUsers.html';
               },
             controller: function() {
-                return newUser == true ? 'homeGuestsController as abtCtrl' : 'homeUsersController as abtCtrl';
+                return newUser == false ? 'homeGuestsController as abtCtrl' : 'homeUsersController as abtCtrl';
               },
-
         }).when('/homeGuests', {
             templateUrl: 'pages/homeGuests/homeGuests.html',
             controller : 'homeGuestsController as abtCtrl'

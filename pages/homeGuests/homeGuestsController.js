@@ -1,5 +1,6 @@
 angular.module("myApp")
 .controller("homeGuestsController", function ($scope,$http,$location) {
+  $scope.$root.currentUser = "Guest";
     $http.get('http://localhost:3000/poi/getAll').then(function (response){
         result = response.data;
         var points=[]
@@ -25,24 +26,6 @@ angular.module("myApp")
     }).finally(function() {
          console.log("Task Finished.");
     });
-
-    $scope.logout = function (){
-      currentUser = "Guest";
-      $scope.$root.login = false;
-      $scope.$root.register = false;
-      $scope.$root.logout = false;
-      $location.url("/homeGuests");
-      $window.sessionStorage.clear();
-  }
-
-    function logout (){
-      currentUser = "Guest";
-      $scope.$root.login = false;
-      $scope.$root.register = false;
-      $scope.$root.logout = false;
-      $location.url("/homeGuests");
-      $window.sessionStorage.clear();
-  }
 
     $scope.moveToRegister = function(){
         $location.url("/register")

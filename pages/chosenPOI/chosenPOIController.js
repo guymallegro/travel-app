@@ -18,7 +18,7 @@ angular.module("myApp")
          console.log("Task Finished.");
     });
 
-    var token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoic2Fwc2FwIiwiaWF0IjoxNTYwODY5Nzg1LCJleHAiOjE1NjA5NTYxODV9.sDuqRNq6tTfkHz-2nyPk_1ILVnbyHO1dv7c2ddjQAgg';
+    var token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidGVzdCIsImlhdCI6MTU2MTcyNzc0NSwiZXhwIjoxNTYxODE0MTQ1fQ.pscZKPgUBlykosewaA1TDu_qQOSI9B_45aIOMAw8eB8';
     function updateWatches (){
         $http({
             method: "PUT",

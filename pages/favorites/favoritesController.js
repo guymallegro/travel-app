@@ -1,5 +1,6 @@
 angular.module("myApp")
-.controller("favoritesController", function ($scope,$http, $window) {
+.controller("favoritesController", function ($scope,$http, $window,$location) {
+    pointName = "";
     var token = $window.sessionStorage.getItem('vacation-token');
     $scope.$root.favorite = "glyphicon glyphicon-heart";
     $http({
@@ -27,6 +28,12 @@ angular.module("myApp")
         else
             removeFromFavorites(poiName);
         
+    }
+
+    $scope.openPOIPage = function (poiName){
+        pointName = poiName.poiName;
+        console.log("problemmm:" + pointName)
+        $location.url("/chosenPOI")
     }
 
     var token = $window.sessionStorage.getItem('vacation-token');
