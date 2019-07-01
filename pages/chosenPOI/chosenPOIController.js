@@ -18,7 +18,7 @@ angular.module("myApp")
          console.log("Task Finished.");
     });
 
-    var token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidGVzdCIsImlhdCI6MTU2MTcyNzc0NSwiZXhwIjoxNTYxODE0MTQ1fQ.pscZKPgUBlykosewaA1TDu_qQOSI9B_45aIOMAw8eB8';
+    var token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiZ3V5IiwiaWF0IjoxNTYxOTc5MjIzLCJleHAiOjE1NjIwNjU2MjN9.3dnRHmFCY6VHOVbIxNoHZbWGM6y-3x6zFqydWMoKxeY';
     function updateWatches (){
         $http({
             method: "PUT",
@@ -28,7 +28,7 @@ angular.module("myApp")
             },
             data: {
                 poiName: $scope.name,
-                watchedAmount: $scope.see + 1
+                watchedAmount: $scope.see
             }
         }).then(function (res) {
             // $window.alert("good");
