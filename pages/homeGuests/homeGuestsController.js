@@ -1,5 +1,5 @@
 angular.module("myApp")
-.controller("homeGuestsController", function ($scope,$http,$location) {
+.controller("homeGuestsController", function ($scope,$http,$location,$window) {
   $scope.$root.currentUser = "Guest";
     $http.get('http://localhost:3000/poi/getAll').then(function (response){
         result = response.data;
@@ -27,6 +27,14 @@ angular.module("myApp")
          console.log("Task Finished.");
     });
 
+    if($window.sessionStorage.getItem('vacation-token')){
+      $scope.loggedIn=true;
+      $scope.currentUser=$window.sessionStorage.getItem('vacation-user-name')
+  }
+  else{
+      $scope.loggedIn=false;
+  }
+
     $scope.moveToRegister = function(){
         $location.url("/register")
     }
@@ -34,13 +42,5 @@ angular.module("myApp")
     $scope.moveToLogin = function(){
         $location.url("/login");
     }
-
-    function clean(value) {
-        delete value["description"];
-        delete value["image"];
-        delete value["dateFirstReview"];
-        delete value["firstReview"];
-        delete value["dateSecondReview"];
-        delete value["secondReview"];
-      }
+    
 });
