@@ -4,26 +4,26 @@ let app = angular.module('myApp', ["ngRoute"]);
 app.config(function($routeProvider,$windowProvider)  {
     var $window = $windowProvider.$get();
     if($window.sessionStorage.getItem('vacation-token')){
-        newUser=true;
+        loggedIn=true;
     }
     else{
-        newUser=false;
+        loggedIn=false;
     }
-
+    
     $routeProvider
         .when('/', {
             templateUrl: function() {
-                return newUser == false ? 'pages/homeGuests/homeGuests.html' : 'pages/homeUsers/homeUsers.html';
+                return loggedIn ? 'pages/homeUsers/homeUsers.html' : 'pages/homeGuests/homeGuests.html';
               },
             controller: function() {
-                return newUser == false ? 'homeGuestsController as abtCtrl' : 'homeUsersController as abtCtrl';
+                return loggedIn ? 'homeUsersController as userCtrl' : 'homeGuestsController as guestCtrl';
               },
         }).when('/homeGuests', {
             templateUrl: 'pages/homeGuests/homeGuests.html',
-            controller : 'homeGuestsController as abtCtrl'
+            controller : 'homeGuestsController as guestCtrl'
         }).when('/homeUsers', {
             templateUrl: 'pages/homeUsers/homeUsers.html',
-            controller : 'homeUsersController as abtCtrl'
+            controller : 'homeUsersController as userCtrl'
         }).when('/about', {
             templateUrl: 'pages/about/about.html',
             controller : 'aboutController as abtCtrl'
@@ -32,22 +32,19 @@ app.config(function($routeProvider,$windowProvider)  {
             controller : 'chosenPOIController as cpoiCtrl'
         }).when('/forgotPassword', {
             templateUrl: 'pages/forgotPassword/forgotPassword.html',
-            controller : 'forgotPasswordController as abtCtrl'
+            controller : 'forgotPasswordController as forgotPassCtrl'
         }).when('/poi', {
             templateUrl: 'pages/poi/poi.html',
             controller : 'poiController as poiCtrl'
         }).when('/login', {
             templateUrl: 'pages/login/login.html',
-            controller : 'loginController as poiCtrl'
-        }).when('/review', {
-            templateUrl: 'pages/review/review.html',
-            controller : 'reviewController as revCtrl'
+            controller : 'loginController as loginCtrl'
         }).when('/favorites', {
             templateUrl: 'pages/favorites/favorites.html',
             controller : 'favoritesController as favCtrl'
         }).when('/register', {
             templateUrl: 'pages/register/register.html',
-            controller : 'registerController as poiCtrl'
+            controller : 'registerController as regCtrl'
         })
         
         .otherwise({ redirectTo: '/' });

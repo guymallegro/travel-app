@@ -53,6 +53,8 @@ select {
     }
     
 </style>
+
+
 </head>
 <body>
   <div id="selectCategory">
@@ -64,6 +66,7 @@ select {
                 value="{{poi.category}}">{{poi.category}}</option>
     </select>
     <button ng-click="sortBy('rank')">Sort by rank</button>
+    <input type="text" ng-model="searchString" placeholder="Enter to search by name" />
   </div>
   <table width="100%" class="table" id="poi">
     <thead>
@@ -72,15 +75,17 @@ select {
       <th ng-click="sortBy('category')">Category</th>
       <th ng-click="sortBy('watchedAmount')">Views</th>
       <th ng-click="sortBy('rank')">Rank</th>
-      <th>Favorites</th> 
+      <th ng-show="loggedIn">Favorites</th> 
      </tr>
     </thead>
     <tbody>
-     <tr ng-repeat="poi in pois | orderBy:propertyName:reverse | filter:predicate(categoryFilter)">
+     <tr ng-repeat="poi in filteredPois  = (pois | filter:predicate(categoryFilter,searchString) | orderBy:propertyName:reverse)">
       <td ng-repeat="cell in poi" ng-click="openPOIPage(poi)">{{cell}}</td>
-      <td ng-model="$index" class=[$index] ng-click="manageFavorites(poi, $index)"></td>
+      <td ng-show="loggedIn" class={{favorite(poi)}} ng-click="manageFavorites(poi,favorite(poi))"></td>
      </tr>
     </tbody>
+    <td ng-show="!filteredPois.length">Sorry, no pois were found with that name.</td>
+    
    </table>
 
 </body>

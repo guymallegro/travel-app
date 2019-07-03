@@ -1,7 +1,7 @@
 angular.module("myApp")
 .controller("poiController", function ($scope,$http, $window, $location) {
     pointName = "";
-    $scope.$root.favorite = "glyphicon glyphicon-heart";
+    $scope.favorite = "glyphicon glyphicon-heart-empty";
     $http.get('http://localhost:3000/poi/getAll').then(function (response){
         result = response.data;
         result.forEach(clean);
@@ -15,11 +15,31 @@ angular.module("myApp")
          console.log("Task Finished.");
     });
 
-    $scope.manageFavorites = function(poiName, index){
-        if ($scope.$root.favorite === "glyphicon glyphicon-heart")
-            addToFavorites(poiName, index);
+    var token = $window.sessionStorage.getItem('vacation-token');
+    if(token){
+    $http({
+        method: "POST",
+        url: "http://localhost:3000/users/getFavorites",
+        headers: {
+            'x-auth-token': token
+        }
+    }).then(function (response){
+            result = response.data;
+            result.forEach(clean);
+            $scope.favorites = result;
+        }).catch(function(response) {
+          console.error('Error occurred:', response.status, response.data);
+        }).finally(function() {
+             console.log("Task Finished.");
+        });
+    }
+
+    $scope.manageFavorites = function(poi,heart){
+        pointName = poi.poiName;
+        if (heart === "glyphicon glyphicon-heart-empty")
+            addToFavorites(pointName);
         else
-            removeFromFavorites(poiName, index);
+            removeFromFavorites(pointName);
         
     }
 
@@ -28,8 +48,22 @@ angular.module("myApp")
         $location.url("/chosenPOI")
     }
 
-    var token = $window.sessionStorage.getItem('vacation-token');
-    function addToFavorites (poiName, index){
+    $scope.favorite = function (poi){
+        pointName = poi["poiName"];
+        for(var i=0; i< $scope.favorites.length;i++){
+            if($scope.favorites[i].poiName == pointName)
+            return "glyphicon glyphicon-heart"
+        }
+        return "glyphicon glyphicon-heart-empty"
+    }
+
+    if(token){
+        $scope.loggedIn=true;
+    }
+    else{
+        $scope.loggedIn=false;
+    }
+    function addToFavorites (poiName){
         $http({
             method: "PUT",
             url: "http://localhost:3000/users/addFavoritePOI",
@@ -37,7 +71,7 @@ angular.module("myApp")
                 'x-auth-token': token
             },
             data: {
-                poiName: poiName.poiName,
+                poiName: poiName
             }
         }).then(function (res) {
             $window.alert("The point added to favorites successfully!");
@@ -68,9 +102,9 @@ angular.module("myApp")
         delete value["dateSecondReview"];
         delete value["secondReview"];
       }
-      $scope.predicate = function( categoryFilter ) {
+      $scope.predicate = function( categoryFilter, searchString ) {
         return function( item ) {
-          return !categoryFilter || item.category === categoryFilter;
+          return ((!searchString || item.poiName.toLowerCase().indexOf(searchString) !== -1) && (!categoryFilter) || item.category === categoryFilter);
         };
       };
 
