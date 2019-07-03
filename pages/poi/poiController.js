@@ -8,28 +8,28 @@ angular.module("myApp")
         $scope.pois = result;
         $scope.reverse = true;
         $scope.propertyName = 'poiName';
+        $scope.sortBy('poiName');
     }).catch(function(response) {
       console.error('Error occurred:', response.status, response.data);
     }).finally(function() {
          console.log("Task Finished.");
     });
 
-    $scope.manageFavorites = function(poiName){
+    $scope.manageFavorites = function(poiName, index){
         if ($scope.$root.favorite === "glyphicon glyphicon-heart")
-            addToFavorites(poiName);
+            addToFavorites(poiName, index);
         else
-            removeFromFavorites(poiName);
+            removeFromFavorites(poiName, index);
         
     }
 
     $scope.openPOIPage = function (poiName){
         pointName = poiName.poiName;
-        console.log("problemmm:" + pointName)
         $location.url("/chosenPOI")
     }
 
     var token = $window.sessionStorage.getItem('vacation-token');
-    function addToFavorites (poiName){
+    function addToFavorites (poiName, index){
         $http({
             method: "PUT",
             url: "http://localhost:3000/users/addFavoritePOI",
@@ -42,14 +42,14 @@ angular.module("myApp")
         }).then(function (res) {
             $window.alert("The point added to favorites successfully!");
             console.log("poi: " + poiName);
-            poiName.push(favorite, "glyphicon glyphicon-user")
-            $scope.$root.poiName.favorite = "glyphicon glyphicon-user"
+            indexFav = "favorite" + index;
+            $scope.pois[index].indexFav = "glyphicon glyphicon-minus-sign";
         }, function (response) {
             $window.alert("The point is already saved in your favorites");
         });
     }
     
-    function removeFromFavorites(poiName){
+    function removeFromFavorites(poiName, index){
         let name = poiName.poiName;
         $http.delete('http://localhost:3000/users/removeFavoritePOI', {headers: {'x-auth-token': token, poiName: name}})
         .then(function (response) {

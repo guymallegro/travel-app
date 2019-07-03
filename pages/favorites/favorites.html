@@ -76,7 +76,8 @@ select {
     <tbody>
      <tr ng-repeat="poi in favorites | orderBy:propertyName:reverse | filter:predicate(categoryFilter)">
         <td ng-repeat="cell in poi" ng-click="openPOIPage(poi)">{{cell}}</td>
-      <td ng-model="favorite" class={{favorite}} ng-click="manageFavorites(poi)"></td>
+      <td ng-model="favorite" class={{favorite}} ng-click="removeFromFavorites(poi, $index)"></td>
+      <!-- <td ng-model="favorite" class={{favorite}} ng-click="removeFromFavorites(poi, $index)"></td> -->
      </tr>
     </tbody>
    </table>

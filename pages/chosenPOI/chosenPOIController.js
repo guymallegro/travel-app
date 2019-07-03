@@ -2,11 +2,7 @@ angular.module("myApp")
 .controller("chosenPOIController", function ($scope,$http, $window) {
     $http.get('http://localhost:3000/poi/getAll').then(function (response){
         ans = response.data;
-        for (index = 0; index < Object.keys(ans).length; index++){
-            if (ans[index].poiName === pointName){
-                break;
-            }
-        }
+        let index = ans.findIndex(poi => poi.poiName === pointName);
         $scope.name = ans[index].poiName;
         $scope.description = ans[index].description;
         $scope.rank = ans[index].rank * 20 + "%";

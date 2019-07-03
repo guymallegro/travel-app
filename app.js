@@ -39,6 +39,9 @@ app.config(function($routeProvider,$windowProvider)  {
         }).when('/login', {
             templateUrl: 'pages/login/login.html',
             controller : 'loginController as poiCtrl'
+        }).when('/review', {
+            templateUrl: 'pages/review/review.html',
+            controller : 'reviewController as revCtrl'
         }).when('/favorites', {
             templateUrl: 'pages/favorites/favorites.html',
             controller : 'favoritesController as favCtrl'
