@@ -2,7 +2,11 @@ angular.module("myApp")
 .controller("chosenPOIController", function ($scope,$http, $window) {
     $http.get('http://localhost:3000/poi/getAll').then(function (response){
         ans = response.data;
-        let index = ans.findIndex(poi => poi.poiName === pointName);
+        for (index = 0; index < Object.keys(ans).length; index++){
+            if (ans[index].poiName === pointName){
+                break;
+            }
+        }
         $scope.name = ans[index].poiName;
         $scope.description = ans[index].description;
         $scope.rank = ans[index].rank * 20 + "%";
@@ -14,7 +18,7 @@ angular.module("myApp")
          console.log("Task Finished.");
     });
 
-    var token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiZ3V5IiwiaWF0IjoxNTYxOTc5MjIzLCJleHAiOjE1NjIwNjU2MjN9.3dnRHmFCY6VHOVbIxNoHZbWGM6y-3x6zFqydWMoKxeY';
+    var token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoic2Fwc2FwIiwiaWF0IjoxNTYwODY5Nzg1LCJleHAiOjE1NjA5NTYxODV9.sDuqRNq6tTfkHz-2nyPk_1ILVnbyHO1dv7c2ddjQAgg';
     function updateWatches (){
         $http({
             method: "PUT",
@@ -24,7 +28,7 @@ angular.module("myApp")
             },
             data: {
                 poiName: $scope.name,
-                watchedAmount: $scope.see
+                watchedAmount: $scope.see + 1
             }
         }).then(function (res) {
             // $window.alert("good");

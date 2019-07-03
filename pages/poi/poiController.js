@@ -1,68 +1,34 @@
 angular.module("myApp")
 .controller("poiController", function ($scope,$http, $window, $location) {
     pointName = "";
-    $scope.favorite = "glyphicon glyphicon-heart-empty";
+    $scope.$root.favorite = "glyphicon glyphicon-heart";
     $http.get('http://localhost:3000/poi/getAll').then(function (response){
         result = response.data;
         result.forEach(clean);
         $scope.pois = result;
         $scope.reverse = true;
         $scope.propertyName = 'poiName';
-        $scope.sortBy('poiName');
     }).catch(function(response) {
       console.error('Error occurred:', response.status, response.data);
     }).finally(function() {
          console.log("Task Finished.");
     });
 
-    var token = $window.sessionStorage.getItem('vacation-token');
-    if(token){
-    $http({
-        method: "POST",
-        url: "http://localhost:3000/users/getFavorites",
-        headers: {
-            'x-auth-token': token
-        }
-    }).then(function (response){
-            result = response.data;
-            result.forEach(clean);
-            $scope.favorites = result;
-        }).catch(function(response) {
-          console.error('Error occurred:', response.status, response.data);
-        }).finally(function() {
-             console.log("Task Finished.");
-        });
-    }
-
-    $scope.manageFavorites = function(poi,heart){
-        pointName = poi.poiName;
-        if (heart === "glyphicon glyphicon-heart-empty")
-            addToFavorites(pointName);
+    $scope.manageFavorites = function(poiName){
+        if ($scope.$root.favorite === "glyphicon glyphicon-heart")
+            addToFavorites(poiName);
         else
-            removeFromFavorites(pointName);
+            removeFromFavorites(poiName);
         
     }
 
     $scope.openPOIPage = function (poiName){
         pointName = poiName.poiName;
+        console.log("problemmm:" + pointName)
         $location.url("/chosenPOI")
     }
 
-    $scope.favorite = function (poi){
-        pointName = poi["poiName"];
-        for(var i=0; i< $scope.favorites.length;i++){
-            if($scope.favorites[i].poiName == pointName)
-            return "glyphicon glyphicon-heart"
-        }
-        return "glyphicon glyphicon-heart-empty"
-    }
-
-    if(token){
-        $scope.loggedIn=true;
-    }
-    else{
-        $scope.loggedIn=false;
-    }
+    var token = $window.sessionStorage.getItem('vacation-token');
     function addToFavorites (poiName){
         $http({
             method: "PUT",
@@ -71,19 +37,19 @@ angular.module("myApp")
                 'x-auth-token': token
             },
             data: {
-                poiName: poiName
+                poiName: poiName.poiName,
             }
         }).then(function (res) {
             $window.alert("The point added to favorites successfully!");
             console.log("poi: " + poiName);
-            indexFav = "favorite" + index;
-            $scope.pois[index].indexFav = "glyphicon glyphicon-minus-sign";
+            poiName.push(favorite, "glyphicon glyphicon-user")
+            $scope.$root.poiName.favorite = "glyphicon glyphicon-user"
         }, function (response) {
             $window.alert("The point is already saved in your favorites");
         });
     }
     
-    function removeFromFavorites(poiName, index){
+    function removeFromFavorites(poiName){
         let name = poiName.poiName;
         $http.delete('http://localhost:3000/users/removeFavoritePOI', {headers: {'x-auth-token': token, poiName: name}})
         .then(function (response) {
@@ -102,9 +68,9 @@ angular.module("myApp")
         delete value["dateSecondReview"];
         delete value["secondReview"];
       }
-      $scope.predicate = function( categoryFilter, searchString ) {
+      $scope.predicate = function( categoryFilter ) {
         return function( item ) {
-          return ((!searchString || item.poiName.toLowerCase().indexOf(searchString) !== -1) && (!categoryFilter) || item.category === categoryFilter);
+          return !categoryFilter || item.category === categoryFilter;
         };
       };
 
