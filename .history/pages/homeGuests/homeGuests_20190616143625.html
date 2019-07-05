@@ -1,0 +1,17 @@
+<div class="col-md-6 col-md-offset-3">
+<p>Hello, guest!</p>
+<p>Welcome to the travel app, if you are a new user please register and if not please login.</p>
+<div ng-controller="homeGuestsController">
+    <button ng-click="moveToRegister()">Register</button>
+    <button ng-click="moveToLogin()">Login</button>
+
+    <div ng-model="points">
+        <p>Here are three popular points of interest : </p>
+            <div ng-repeat="point in threeRandomPoints">
+                <p>A {{point.poiName}}</p>
+                <img ng-src="{{point.image}}" alt="Italian Trulli">
+            </div>
+        </div>
+</div>
+</div>
+

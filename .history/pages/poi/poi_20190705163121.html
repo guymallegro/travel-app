@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+.table{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#poi {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 50%;
+}
+select {
+display: block;
+margin: 0 auto;
+}
+
+
+#poi td, #poi th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#selectCategory select,
+  #selectCategory p {
+    display: inline;
+    vertical-align: top;
+    line-height: 28px;
+  }
+
+
+#poi tr:nth-child(even){background-color: #f2f2f2;}
+
+#poi tr:hover {
+  cursor: pointer;
+  background-color: #ddd;}
+
+#poi th {
+  padding-top: 12px;
+  padding-bottom: 8px;
+  text-align: left;
+  background-color: rgb(163, 41, 39);
+  color: white;
+  cursor: pointer;
+}
+
+select {
+        width: 10% !important;
+        margin: 0 auto;
+    }
+    
+</style>
+
+
+</head>
+<body>
+  <div id="selectCategory">
+  <p>Category :</p>
+    <select class="form-control" ng-model="categoryFilter" width="10%">
+            <option value="">All</option>
+            <option 
+                ng-repeat="poi in pois | unique: 'category'" 
+                value="{{poi.category}}">{{poi.category}}</option>
+    </select>
+    <button ng-click="sortBy('rank')">Sort by rank</button>
+    <input type="text" ng-model="searchString" placeholder="Enter to search by name" />
+  </div>
+  <table width="100%" class="table" id="poi">
+    <thead>
+     <tr>
+      <th ng-click="sortBy('poiName')">Name</th>
+      <th ng-click="sortBy('category')">Category</th>
+      <th ng-click="sortBy('watchedAmount')">Views</th>
+      <th ng-click="sortBy('rank')">Rank</th>
+      <th ng-show="loggedIn">Favorites</th> 
+     </tr>
+    </thead>
+    <tbody>
+     <tr ng-repeat="poi in filteredPois  = (pois | filter:predicate(categoryFilter,searchString) | orderBy:propertyName:reverse)">
+      <td ng-repeat="cell in poi" ng-click="openPOIPage(poi)">{{cell}}</td>
+      <td ng-hide=true ng-model="favorite" class={{favorite(poi)}} ng-click="manageFavorites(poi)"></td>
+      
+     </tr>
+    </tbody>
+    <td ng-show="!filteredPois.length">Sorry, no pois were found with that name.</td>
+    
+   </table>
+
+</body>
+</html>
