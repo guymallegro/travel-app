@@ -9,7 +9,6 @@ angular.module("myApp")
         $scope.pois = result;
         $scope.reverse = true;
         $scope.propertyName = 'poiName';
-        $scope.sortBy('poiName');
     }).catch(function(response) {
       console.error('Error occurred:', response.status, response.data);
     }).finally(function() {
@@ -42,7 +41,7 @@ angular.module("myApp")
         else{
             removeFromFavorites(pointName);
         }
-    }
+
     $scope.openPOIPage = function (poiName){
         pointName = poiName.poiName;
         $location.url("/chosenPOI");
@@ -63,7 +62,6 @@ angular.module("myApp")
     else{
         $scope.loggedIn=false;
     }
-    
     function addToFavorites (poiName){
         $http({
             method: "PUT",
@@ -95,8 +93,6 @@ angular.module("myApp")
         });
     }
 
-        
-
     function clean(value) {
         delete value["description"];
         delete value["image"];
@@ -105,9 +101,9 @@ angular.module("myApp")
         delete value["dateSecondReview"];
         delete value["secondReview"];
       }
-      $scope.predicate = function( categoryFilter, searchString ) {
+      $scope.predicate = function( categoryFilter ) {
         return function( item ) {
-            return ((!searchString || item.poiName.toLowerCase().indexOf(searchString) !== -1) && (!categoryFilter) || item.category === categoryFilter);
+          return !categoryFilter || item.category === categoryFilter;
         };
       };
 

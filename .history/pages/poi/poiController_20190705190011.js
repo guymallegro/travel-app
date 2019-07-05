@@ -105,9 +105,9 @@ angular.module("myApp")
         delete value["dateSecondReview"];
         delete value["secondReview"];
       }
-      $scope.predicate = function( categoryFilter, searchString ) {
+      $scope.predicate = function( categoryFilter ) {
         return function( item ) {
-            return ((!searchString || item.poiName.toLowerCase().indexOf(searchString) !== -1) && (!categoryFilter) || item.category === categoryFilter);
+          return !categoryFilter || item.category === categoryFilter;
         };
       };
 

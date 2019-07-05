@@ -67,14 +67,12 @@ select {
      </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="poi in pois | orderBy:propertyName:reverse | filter:predicate(categoryFilter,searchString)">
-      <tr ng-repeat="poi in filteredPois  = (pois | filter:predicate(categoryFilter,searchString))">
+        <tr ng-repeat="poi in pois | orderBy:propertyName:reverse | filter:predicate(categoryFilter,searchString)">
       <td ng-repeat="cell in poi" ng-click="openPOIPage(poi)">{{cell}}</td>
       <td ng-show="loggedIn" ng-click="manageFavorites(poi,favorite(poi))"></td>
       
      </tr>
     </tbody>
-    <td ng-show="!filteredPois.length">Sorry, no pois were found with that name.</td>
    </table>
 
 </body>

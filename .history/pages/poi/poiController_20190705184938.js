@@ -9,7 +9,6 @@ angular.module("myApp")
         $scope.pois = result;
         $scope.reverse = true;
         $scope.propertyName = 'poiName';
-        $scope.sortBy('poiName');
     }).catch(function(response) {
       console.error('Error occurred:', response.status, response.data);
     }).finally(function() {
@@ -42,19 +41,19 @@ angular.module("myApp")
         else{
             removeFromFavorites(pointName);
         }
-    }
+
     $scope.openPOIPage = function (poiName){
         pointName = poiName.poiName;
-        $location.url("/chosenPOI");
+        $location.url("/chosenPOI")
     }
 
     $scope.favorite = function (poi){
         pointName = poi["poiName"];
         for(var i=0; i< $scope.favorites.length;i++){
             if($scope.favorites[i].poiName == pointName)
-            return "glyphicon glyphicon-heart";
+            return "glyphicon glyphicon-heart"
         }
-        return "glyphicon glyphicon-heart-empty";
+        return "glyphicon glyphicon-heart-empty"
     }
 
     if(token){
@@ -63,7 +62,6 @@ angular.module("myApp")
     else{
         $scope.loggedIn=false;
     }
-    
     function addToFavorites (poiName){
         $http({
             method: "PUT",
@@ -86,16 +84,14 @@ angular.module("myApp")
     
     function removeFromFavorites(poiName){
         let name = poiName.poiName;
-        $http.delete('http://localhost:3000/users/removeFavoritePOI', {headers: {'x-auth-token': token, poiName: name}}
-        ).then(function (response) {
+        $http.delete('http://localhost:3000/users/removeFavoritePOI', {headers: {'x-auth-token': token, poiName: name}})
+        .then(function (response) {
             $window.alert("The point removed from favorites successfully!");
             $scope.$root.favorite = "glyphicon glyphicon-heart"
         }, function (response) {
             console.log(response)
         });
     }
-
-        
 
     function clean(value) {
         delete value["description"];
@@ -105,9 +101,9 @@ angular.module("myApp")
         delete value["dateSecondReview"];
         delete value["secondReview"];
       }
-      $scope.predicate = function( categoryFilter, searchString ) {
+      $scope.predicate = function( categoryFilter ) {
         return function( item ) {
-            return ((!searchString || item.poiName.toLowerCase().indexOf(searchString) !== -1) && (!categoryFilter) || item.category === categoryFilter);
+          return !categoryFilter || item.category === categoryFilter;
         };
       };
 

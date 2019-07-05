@@ -107,8 +107,8 @@ angular.module("myApp")
       }
       $scope.predicate = function( categoryFilter, searchString ) {
         return function( item ) {
-            return ((!searchString || item.poiName.toLowerCase().indexOf(searchString) !== -1) && (!categoryFilter) || item.category === categoryFilter);
-        };
+            return ((!searchString || item.poiName.toLowerCase().indexOf(searchString) !== -1) && !categoryFilter) || item.category === categoryFilter;
+        }
       };
 
       $scope.sortBy = function(propertyName) {

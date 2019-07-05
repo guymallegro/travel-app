@@ -9,7 +9,6 @@ angular.module("myApp")
         $scope.pois = result;
         $scope.reverse = true;
         $scope.propertyName = 'poiName';
-        $scope.sortBy('poiName');
     }).catch(function(response) {
       console.error('Error occurred:', response.status, response.data);
     }).finally(function() {
@@ -42,7 +41,7 @@ angular.module("myApp")
         else{
             removeFromFavorites(pointName);
         }
-    }
+
     $scope.openPOIPage = function (poiName){
         pointName = poiName.poiName;
         $location.url("/chosenPOI");
@@ -64,38 +63,6 @@ angular.module("myApp")
         $scope.loggedIn=false;
     }
     
-    function addToFavorites (poiName){
-        $http({
-            method: "PUT",
-            url: "http://localhost:3000/users/addFavoritePOI",
-            headers: {
-                'x-auth-token': token
-            },
-            data: {
-                poiName: poiName
-            }
-        }).then(function (res) {
-            $window.alert("The point added to favorites successfully!");
-            console.log("poi: " + poiName);
-            poiName.push(favorite, "glyphicon glyphicon-user")
-            $scope.$root.poiName.favorite = "glyphicon glyphicon-user"
-        }, function (response) {
-            $window.alert("The point is already saved in your favorites");
-        });
-    }
-    
-    function removeFromFavorites(poiName){
-        let name = poiName.poiName;
-        $http.delete('http://localhost:3000/users/removeFavoritePOI', {headers: {'x-auth-token': token, poiName: name}}
-        ).then(function (response) {
-            $window.alert("The point removed from favorites successfully!");
-            $scope.$root.favorite = "glyphicon glyphicon-heart"
-        }, function (response) {
-            console.log(response)
-        });
-    }
-
-        
 
     function clean(value) {
         delete value["description"];
@@ -105,9 +72,9 @@ angular.module("myApp")
         delete value["dateSecondReview"];
         delete value["secondReview"];
       }
-      $scope.predicate = function( categoryFilter, searchString ) {
+      $scope.predicate = function( categoryFilter ) {
         return function( item ) {
-            return ((!searchString || item.poiName.toLowerCase().indexOf(searchString) !== -1) && (!categoryFilter) || item.category === categoryFilter);
+          return !categoryFilter || item.category === categoryFilter;
         };
       };
 
