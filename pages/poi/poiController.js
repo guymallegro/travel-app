@@ -1,5 +1,6 @@
 angular.module("myApp")
 .controller("poiController", function ($scope,$http, $window, $location) {
+    let favor = true;
     pointName = "";
     $scope.$root.favorite = "glyphicon glyphicon-heart";
     $http.get('http://localhost:3000/poi/getAll').then(function (response){
@@ -7,7 +8,7 @@ angular.module("myApp")
         result.forEach(clean);
         $scope.pois = result;
         $scope.reverse = true;
-        $scope.propertyName = 'poiName';
+        // $scope.propertyName = 'poiName';
     }).catch(function(response) {
       console.error('Error occurred:', response.status, response.data);
     }).finally(function() {
@@ -24,11 +25,29 @@ angular.module("myApp")
 
     $scope.openPOIPage = function (poiName){
         pointName = poiName.poiName;
-        console.log("problemmm:" + pointName)
         $location.url("/chosenPOI")
     }
 
+<<<<<<< HEAD
     var token = $window.sessionStorage.getItem('vacation-token');
+=======
+    $scope.favorite = function (poi){
+        favor = false;
+        pointName = poi["poiName"];
+        for(var i=0; i< $scope.favorites.length;i++){
+            if($scope.favorites[i].poiName == pointName)
+            return "glyphicon glyphicon-heart"
+        }
+        return "glyphicon glyphicon-heart-empty"
+    }
+
+    if(token){
+        $scope.loggedIn=true;
+    }
+    else{
+        $scope.loggedIn=false;
+    }
+>>>>>>> a79ce8280f5e56c0911144d597bb2344134b9956
     function addToFavorites (poiName){
         $http({
             method: "PUT",
@@ -41,9 +60,7 @@ angular.module("myApp")
             }
         }).then(function (res) {
             $window.alert("The point added to favorites successfully!");
-            console.log("poi: " + poiName);
-            poiName.push(favorite, "glyphicon glyphicon-user")
-            $scope.$root.poiName.favorite = "glyphicon glyphicon-user"
+            $window.location.reload();
         }, function (response) {
             $window.alert("The point is already saved in your favorites");
         });
@@ -54,7 +71,7 @@ angular.module("myApp")
         $http.delete('http://localhost:3000/users/removeFavoritePOI', {headers: {'x-auth-token': token, poiName: name}})
         .then(function (response) {
             $window.alert("The point removed from favorites successfully!");
-            $scope.$root.favorite = "glyphicon glyphicon-heart"
+            $window.location.reload();
         }, function (response) {
             console.log(response)
         });

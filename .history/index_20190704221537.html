@@ -1,0 +1,48 @@
+<html>
+    <head>
+        <title>Travel</title>
+        <link rel="stylesheet" type="text/css" href="style.css" />
+    </head>
+    <body ng-app="myApp" ng-controller="homeGuestsController">
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
+
+        <!-- load angular -->
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.js"></script>
+        <script src="https://code.angularjs.org/1.7.8/angular-route.js"></script>
+
+        <!-- load app -->
+        <script src="app.js"></script>
+
+        <!-- load controllers -->
+        <script src="pages/homeGuests/homeGuestsController.js"></script>
+        <script src="pages/homeUsers/homeUsersController.js"></script>
+        <script src="pages/about/aboutController.js"></script>
+        <script src="pages/login/loginController.js"></script>
+        <script src="pages/register/registerController.js"></script>
+        <script src="pages/favorites/favoritesController.js"></script>
+        <script src="pages/poi/poiController.js"></script>
+        <script src="pages/chosenPOI/chosenPOIController.js"></script>
+        <script src="pages/forgotPassword/forgotPasswordController.js"></script>
+
+        <nav class="navbar navbar-inverse">
+                <div class="container-fluid">
+                    <ul class="nav navbar-nav">
+                        <li><a href="#!home">Home|</a></li>
+                        <li><a href="#!favorites">Favorites|</a></li>
+                        <li><a href="#!poi">POI|</a></li>
+                        <li><a  href="#!about">About|</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a ng-model="logout" ng-show="logout" ng-click="logout()"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
+                        <li><a ng-model="register" ng-hide="register" href="#!register"><span class="glyphicon glyphicon-user"></span> Register</a></li>
+                        <li><a ng-model="login" ng-hide="login" href="#!login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                        <li><a ng-model="currentUser"><span class="glyphicon glyphicon-heart"></span>Hello {{currentUser}}</a></li>
+                    </ul>
+                </div>
+            </nav>
+        <!-- This section changes as the hashbang changes -->
+        <div ng-view></div>
+    </body>
+</html>
