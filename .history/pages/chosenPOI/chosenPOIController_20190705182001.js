@@ -6,7 +6,7 @@ angular.module("myApp")
         $scope.name = ans[index].poiName;
         $scope.description = ans[index].description;
         $scope.rank = ans[index].rank * 20 + "%";
-        $scope.see = ans[index].watchedAmount + 1; // plus one
+        $scope.see = ans[index].watchedAmount; // plus one
         $scope.poiImage = ans[index].image;
         updateWatches();
         // showReviews();
@@ -14,7 +14,7 @@ angular.module("myApp")
       console.error('Error occurred:', response.status, response.data);
     });
 
-    var token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoic2Fwc2FwIiwiaWF0IjoxNTYyMzMwODg2LCJleHAiOjE1NjI0MTcyODZ9.3J4h-B13X9OUFq-kgty4gJrHyg2smm5rvGgVILTK-eY';
+    var token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoic2Fwc2FwIiwiaWF0IjoxNTYwODY5Nzg1LCJleHAiOjE1NjA5NTYxODV9.sDuqRNq6tTfkHz-2nyPk_1ILVnbyHO1dv7c2ddjQAgg';
     function updateWatches (){
         $http({
             method: "PUT",

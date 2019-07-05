@@ -9,7 +9,7 @@ angular.module("myApp")
         $scope.see = ans[index].watchedAmount + 1; // plus one
         $scope.poiImage = ans[index].image;
         updateWatches();
-        // showReviews();
+        showReviews();
     },function(response) {
       console.error('Error occurred:', response.status, response.data);
     });

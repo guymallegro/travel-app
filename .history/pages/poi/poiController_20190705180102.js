@@ -37,13 +37,13 @@ angular.module("myApp")
         }
         return "glyphicon glyphicon-heart-empty"
     }
-    var token = $window.sessionStorage.getItem('vacation-token');
-    if(token){
-        $scope.loggedIn=true;
-    }
-    else{
-        $scope.loggedIn=false;
-    }
+
+    // if(token){
+    //     $scope.loggedIn=true;
+    // }
+    // else{
+    //     $scope.loggedIn=false;
+    // }
     function addToFavorites (poiName){
         $http({
             method: "PUT",

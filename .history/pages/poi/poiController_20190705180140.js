@@ -37,7 +37,7 @@ angular.module("myApp")
         }
         return "glyphicon glyphicon-heart-empty"
     }
-    var token = $window.sessionStorage.getItem('vacation-token');
+
     if(token){
         $scope.loggedIn=true;
     }

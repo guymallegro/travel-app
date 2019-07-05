@@ -2,14 +2,17 @@ angular.module("myApp")
 .controller("chosenPOIController", function ($scope,$http, $window) {
     $http.get('http://localhost:3000/poi/getAll').then(function (response){
         ans = response.data;
-        let index = ans.findIndex(poi => poi.poiName === pointName);
+        for (index = 0; index < Object.keys(ans).length; index++){
+            if (ans[index].poiName === pointName){
+                break;
+            }
+        }
         $scope.name = ans[index].poiName;
         $scope.description = ans[index].description;
         $scope.rank = ans[index].rank * 20 + "%";
         $scope.see = ans[index].watchedAmount + 1; // plus one
         $scope.poiImage = ans[index].image;
         updateWatches();
-        // showReviews();
     },function(response) {
       console.error('Error occurred:', response.status, response.data);
     });
@@ -23,7 +26,7 @@ angular.module("myApp")
                 'x-auth-token': token
             },
             data: {
-                poiName: pointName,
+                poiName: ans[index].poiName,
                 watchedAmount: $scope.see
             }
         }).then(function (res) {
@@ -31,16 +34,5 @@ angular.module("myApp")
         }, function (response) {
             // $window.alert("not good");
         });
-    }
-
-    function showReviews (){
-        $http.get('http://localhost:3000/poi/getDetails', {'poiName': pointName})
-        .then(function (response){
-        ans = response.data;
-        console.log(ans);
-        review_1 = ans.firstReview;
-    },function(response) {
-      console.error('Error occurred:', response.status, response.data);
-    });
     }
 });
