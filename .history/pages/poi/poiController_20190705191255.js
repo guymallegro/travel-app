@@ -82,6 +82,7 @@ angular.module("myApp")
             }
         }).then(function (res) {
             $window.alert("The point added to favorites successfully!");
+            
         }, function (response) {
             $window.alert("The point is already saved in your favorites");
         });

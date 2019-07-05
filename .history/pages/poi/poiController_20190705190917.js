@@ -82,6 +82,9 @@ angular.module("myApp")
             }
         }).then(function (res) {
             $window.alert("The point added to favorites successfully!");
+            console.log("poi: " + poiName);
+            poiName.push(favorite, "glyphicon glyphicon-user")
+            $scope.$root.poiName.favorite = "glyphicon glyphicon-user"
         }, function (response) {
             $window.alert("The point is already saved in your favorites");
         });
