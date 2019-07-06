@@ -56,9 +56,11 @@ angular.module("myApp")
 
     $scope.favorite = function (poi){
         pointName = poi["poiName"];
-        for(var i=0; i< $scope.favorites.length;i++){
-            if($scope.favorites[i].poiName == pointName)
-            return "glyphicon glyphicon-heart";
+        if($scope.favorites){
+            for(var i=0; i< $scope.favorites.length;i++){
+                if($scope.favorites[i].poiName == pointName)
+                return "glyphicon glyphicon-heart";
+            }
         }
         return "glyphicon glyphicon-heart-empty";
     }
