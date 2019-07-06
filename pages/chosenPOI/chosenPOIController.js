@@ -1,21 +1,20 @@
 angular.module("myApp")
-.controller("chosenPOIController", function ($scope,$http, $window) {
-    $http.get('http://localhost:3000/poi/getAll').then(function (response){
+.controller("chosenPOIController", function ($scope,$http,$location) {
+    parameters=$location.search()
+    $http.get('http://localhost:3000/poi/getDetails?poiName='+parameters.poiName).then(function (response){
         ans = response.data;
-        let index = ans.findIndex(poi => poi.poiName === pointName);
-        $scope.name = ans[index].poiName;
-        $scope.description = ans[index].description;
-        $scope.rank = ans[index].rank * 20 + "%";
-        $scope.see = ans[index].watchedAmount + 1; // plus one
-        $scope.poiImage = ans[index].image;
-        updateWatches();
-        // showReviews();
+        $scope.description = ans[0].description;
+        $scope.rank = ans[0].rank * 20 + "%";
+        $scope.see = ans["0"].watchedAmount + 1;
+        $scope.poiImage = ans[0].image;
+        $scope.review_1 = ans[0].firstReview;
+        updateWatches($scope.see,parameters.poiName);
     },function(response) {
       console.error('Error occurred:', response.status, response.data);
     });
 
-    var token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoic2Fwc2FwIiwiaWF0IjoxNTYyMzMwODg2LCJleHAiOjE1NjI0MTcyODZ9.3J4h-B13X9OUFq-kgty4gJrHyg2smm5rvGgVILTK-eY';
-    function updateWatches (){
+    var token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiZ3V5IiwiaWF0IjoxNTYyNDI0OTgwLCJleHAiOjE1NjI1MTEzODB9.RUZ2G3VOZVX4l70qop49OcmUIkjwJBvAo4tryAvMKiA';
+    function updateWatches (see,name){
         $http({
             method: "PUT",
             url: "http://localhost:3000/POI/updateSeenAmount",
@@ -23,24 +22,13 @@ angular.module("myApp")
                 'x-auth-token': token
             },
             data: {
-                poiName: pointName,
-                watchedAmount: $scope.see
+                poiName: name,
+                watchedAmount: see
             }
         }).then(function (res) {
             // $window.alert("good");
         }, function (response) {
             // $window.alert("not good");
         });
-    }
-
-    function showReviews (){
-        $http.get('http://localhost:3000/poi/getDetails', {'poiName': pointName})
-        .then(function (response){
-        ans = response.data;
-        console.log(ans);
-        review_1 = ans.firstReview;
-    },function(response) {
-      console.error('Error occurred:', response.status, response.data);
-    });
     }
 });
