@@ -67,7 +67,7 @@ select {
      </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="image in poi"> <img ng-src={{image}}></tr>
+        <td ng-repeat="image in poi" ng-click="openPOIPage(poi)"></td>
       <tr ng-repeat="poi in pois | orderBy:propertyName:reverse | filter:predicate(categoryFilter,searchString)">
       <tr ng-repeat="poi in filteredPois  = (pois | filter:predicate(categoryFilter,searchString))">
       <td ng-repeat="cell in poi" ng-click="openPOIPage(poi)">{{cell}}</td>
