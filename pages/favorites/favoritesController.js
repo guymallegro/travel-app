@@ -47,14 +47,10 @@ angular.module("myApp")
     //     });
     // }
     
-    $scope.removeFromFavorites = function (poiName, index){
+    $scope.removeFromFavorites = function (poi, index){
         $scope.favorites.splice (index, 1)
-        let name = poiName.poiName;
-        let pname = 'poiName';
-        console.log(poiName.poiName);
-        console.log('pname: ' + pname);
-        var data = {poiName: poiName}
-        $http.delete('http://localhost:3000/users/removeFavoritePOI', {headers: {'x-auth-token': token, poiName: name}})
+        let poiName = poi.poiName;
+        $http.delete('http://localhost:3000/users/removeFavoritePOI', {data: {'poiName':poiName},headers: {'x-auth-token': token,'Content-Type': 'application/json;charset=utf-8'}})
         .then(function (response) {
             $window.alert("The point removed from favorites successfully!");
         }, function (response) {
