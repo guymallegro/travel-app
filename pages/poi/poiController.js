@@ -51,7 +51,7 @@ angular.module("myApp")
     }
     $scope.openPOIPage = function (poiName){
         pointName = poiName.poiName;
-        $location.url("/chosenPOI");
+        $location.url("/chosenPOI?poiName="+pointName);
     }
 
     $scope.favorite = function (poi){
