@@ -23,14 +23,17 @@ angular.module("myApp")
         $location.url("/chosenPOI?poiName="+pointName);
     }
     
-    $scope.removeFromFavorites = function (poi, index){
+    $scope.removeFromFavorites = function (poi,index){
+        poiName=poi.poiName;
+        existing = $window.localStorage.getItem('vacation-favorites')
+        existing = existing ? existing.split(',') : [];
         $scope.favorites.splice (index, 1)
-        let poiName = poi.poiName;
-        $http.delete('http://localhost:3000/users/removeFavoritePOI', {data: {'poiName':poiName},headers: {'x-auth-token': token,'Content-Type': 'application/json;charset=utf-8'}})
-        .then(function (response) {
-        }, function (response) {
-            console.log(response)
-        });
+        var index = existing.indexOf(poiName);
+        if (index > -1) {
+           existing.splice(index, 1);
+
+        }
+        $window.localStorage.setItem('vacation-favorites', existing.toString());
     }
 
     function clean(value) {
@@ -53,8 +56,9 @@ angular.module("myApp")
             if(!favorites.includes(points[i].poiName)){
                 points.splice(i,1)
             }
-            else
+            else{
                 i++;
+            }
         }
     }
     $scope.predicate = function( categoryFilter ) {
