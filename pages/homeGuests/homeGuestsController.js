@@ -1,8 +1,5 @@
 angular.module("myApp")
 .controller("homeGuestsController", function ($scope,$http,$location,$window) {
-  $scope.$root.login = true;
-  $scope.$root.register = true;
-  // $scope.$root.logout = false;
   $scope.$root.currentUser = "Guest";
     $http.get('http://localhost:3000/poi/getAll').then(function (response){
         result = response.data;
@@ -55,12 +52,9 @@ angular.module("myApp")
     }
 
     $scope.logout = function (){
-        $scope.$root.currentUser = "Guest";
-        $scope.login = false;
-        $scope.register = false;
-        $scope.logout = false;
-        $location.url("/homeGuests");
-        $window.sessionStorage.clear();
+      $window.sessionStorage.clear();
+      $scope.currentUser = "Guest";
+      $location.url("/homeGuests");
     }
     
 });

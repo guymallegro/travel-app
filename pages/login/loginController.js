@@ -6,8 +6,6 @@ angular.module("myApp")
             $window.sessionStorage.setItem('vacation-user-name',userName);
             $location.url("/homeUsers");
             $scope.$root.currentUser=userName;
-            $scope.$root.logout = true;
-            $scope.$root.newUser = false;
         }).catch(function(response) {
           console.error('Error occurred:', response.status, response.data);
         }).finally(function() {

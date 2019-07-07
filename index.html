@@ -6,6 +6,7 @@
     <body ng-app="myApp" ng-controller="homeGuestsController">
         <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -33,16 +34,16 @@
         <nav class="navbar navbar-inverse">
                 <div class="container-fluid">
                     <ul class="nav navbar-nav">
-                        <li><a href="#!home">Home|</a></li>
-                        <li><a href="#!favorites">Favorites|</a></li>
-                        <li><a href="#!poi">POI|</a></li>
-                        <li><a  href="#!about">About|</a></li>
+                        <li><a href="#!home">Home</a></li>
+                        <li><a ng-model="login" ng-show="loggedIn" href="#!favorites"><span class="glyphicon glyphicon-heart"></span>Favorites</a></li>
+                        <li><a href="#!poi">POI</a></li>
+                        <li><a  href="#!about">About</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a ng-model="logout" ng-show="loggedIn" ng-click="logout()"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
                         <li><a ng-model="register" ng-hide="loggedIn" href="#!register"><span class="glyphicon glyphicon-user"></span> Register</a></li>
                         <li><a ng-model="login" ng-hide="loggedIn" href="#!login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-                        <li><a ng-model="currentUser"><span class="glyphicon glyphicon-heart"></span>Hello {{currentUser}}</a></li>
+                        <li><a ng-model="currentUser">Hello {{currentUser}}</a></li>
                     </ul>
                 </div>
             </nav>

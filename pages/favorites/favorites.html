@@ -77,7 +77,7 @@ select {
                 ng-repeat="poi in favorites | unique: 'category'" 
                 value="{{poi.category}}">{{poi.category}}</option>
     </select>
-    <button ng-click="sortBy('rank')">Sort by rank</button>
+    <button ng-click="saveFavoritePoints()">Save favorite points</button>
   </div>
   <table width="100%" class="table" id="poi">
     <thead>
@@ -107,6 +107,12 @@ select {
                 <h4 class="modal-title">What do you think about this place?</h4>
               </div>
               <div class="modal-body">
+                  <button class="btn"><i class="fa fa-star" ng-click="setRank(1)"></i></button>
+                  <button class="btn"><i class="fa fa-star" ng-click="setRank(2)"></i></button>
+                  <button class="btn"><i class="fa fa-star" ng-click="setRank(3)"></i></button>
+                  <button class="btn"><i class="fa fa-star" ng-click="setRank(4)"></i></button>
+                  <button class="btn"><i class="fa fa-star" ng-click="setRank(5)"></i></button>
+                  <p ng-model="rankMessage"> {{rankMessage}}</p>
               <div id="message" style="text-align: center; color: green;"></div>
                 <div class="form-group"> 
                 <span id="updatecapacitymodalerrortext" style="color:red"></span> 
