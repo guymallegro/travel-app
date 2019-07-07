@@ -89,7 +89,7 @@ angular.module("myApp")
                     addReview (userReview, dateReview, 2);
                 }
             }
-            first = true;
+            first = false;
         },
             function (response) {
                 console.error('Error occurred:', response.status, response.data);
@@ -109,7 +109,7 @@ angular.module("myApp")
                 date: dateReview,
                 poiName: pointName
             }
-        }).then(function (res) { },
+        }).then(function (res) { first = false; },
         function (response) { console.error('Error occurred:', response.status, response.data);   });
     }
 

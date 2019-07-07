@@ -31,9 +31,7 @@ angular.module("myApp")
 
     $scope.setPOIName = function (index){
         if (first){
-            pointName = $scope.favorites[index].poiName;
-            first = false;
-        }
+            pointName = $scope.favorites[index].poiName;}
         console.log("myyy name issss: "+ pointName);
     }
     
@@ -89,7 +87,7 @@ angular.module("myApp")
                     addReview (userReview, dateReview, 2);
                 }
             }
-            first = true;
+            first = false;
         },
             function (response) {
                 console.error('Error occurred:', response.status, response.data);
@@ -109,7 +107,7 @@ angular.module("myApp")
                 date: dateReview,
                 poiName: pointName
             }
-        }).then(function (res) { },
+        }).then(function (res) { first = false; },
         function (response) { console.error('Error occurred:', response.status, response.data);   });
     }
 

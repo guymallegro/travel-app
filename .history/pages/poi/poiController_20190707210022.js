@@ -16,7 +16,7 @@ angular.module("myApp")
         $scope.reverse = true;
         $scope.propertyName = 'poiName';
         $scope.sortBy('poiName');
-    }).catch(function(response){
+    }).catch(function(response) {
       console.error('Error occurred:', response.status, response.data);
     }).finally(function() {
          console.log("Task Finished.");

@@ -109,7 +109,7 @@ angular.module("myApp")
                 date: dateReview,
                 poiName: pointName
             }
-        }).then(function (res) { },
+        }).then(function (res) {cancel(); },
         function (response) { console.error('Error occurred:', response.status, response.data);   });
     }
 

@@ -116,7 +116,7 @@ select {
                     </div>
               </div>
               <br/>
-              <button type="button" id="updateCapacityBtn" class="btn btn-info" ng-click="acceptReview(userReview)">Add</button>
+              <button type="button" id="updateCapacityBtn" class="btn btn-info" ng-disabled="form.userForm.$invalid" ng-click="acceptReview(userReview)">Add</button>
               <button type="button" id="capacityModalClose" class="btn btn-default" data-dismiss="modal">Close</button>
               </div>
               </div> 

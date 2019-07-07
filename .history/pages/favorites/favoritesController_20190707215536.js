@@ -1,7 +1,6 @@
 angular.module("myApp")
 .controller("favoritesController", function ($scope,$http, $window,$location) {
     pointName = "";
-    first = true;
     var token = $window.sessionStorage.getItem('vacation-token');
     $scope.$root.favorite = "glyphicon glyphicon-minus-sign";
     $http({
@@ -27,14 +26,6 @@ angular.module("myApp")
     $scope.openPOIPage = function (poiName){
         pointName = poiName.poiName;
         $location.url("/chosenPOI?poiName="+pointName);
-    }
-
-    $scope.setPOIName = function (index){
-        if (first){
-            pointName = $scope.favorites[index].poiName;
-            first = false;
-        }
-        console.log("myyy name issss: "+ pointName);
     }
     
     $scope.removeFromFavorites = function (poi, index){
@@ -68,34 +59,36 @@ angular.module("myApp")
         $scope.propertyName = propertyName;
       };
 
-      $scope.acceptReview = function(userReview){
-        console.log("name: " +pointName)
+      $scope.acceptReview = function(index, userReview){
+        parameters=$location.search()
         dateReview = getDate();
-        $http.get('http://localhost:3000/poi/getDetails?poiName='+pointName)
+        $http.get('http://localhost:3000/poi/getDetails?poiName='+parameters.poiName)
         .then(function (response){
             ans = response.data;
+            console.log("name: " +$scope.favorites[3].poiName);
+            alert(ans[0].firstReview);
             if (ans[0].firstReview == null){
-                addReview (userReview, dateReview, 1);
+                console.log("first case if");
+                addReview (poi.poiName, userReview, dateReview, 1);
             }
-            else if (ans[0].secondReview == null){
-                addReview (userReview, dateReview, 2);
+            else if (ans[0].secondReview == ""){
+                console.log("second case if");
+                addReview (poi.poiName, userReview, dateReview, 2);
             }
             else{
                 console.log("third case if");
                 if (ans[0].dateFirstReview > ans[0].dateSecondReview){
-                    addReview (userReview, dateReview, 1);
+                    addReview (poi.poiName, userReview, dateReview, 2);
                 }
                 else{
-                    addReview (userReview, dateReview, 2);
+                    addReview (poi.poiName, userReview, dateReview, 1);
                 }
-            }
-            first = true;
-        },
+            }},
             function (response) {
                 console.error('Error occurred:', response.status, response.data);
             })};
 
-    function addReview  (userReview, dateReview, index){
+    function addReview  (poiName, userReview, dateReview, index){
         token = $window.sessionStorage.getItem('vacation-token');
         $http({
             method: "PUT",
@@ -107,9 +100,9 @@ angular.module("myApp")
                 reviewIndex: index,
                 review: userReview,
                 date: dateReview,
-                poiName: pointName
+                poiName: poiName
             }
-        }).then(function (res) { },
+        }).then(function (res) { alert("yahhhhhh!") },
         function (response) { console.error('Error occurred:', response.status, response.data);   });
     }
 

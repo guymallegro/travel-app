@@ -95,7 +95,7 @@ select {
       <td ng-repeat="cell in poi" ng-click="openPOIPage(poi)">{{cell}}</td>
       <td ng-model="favorite" class={{favorite}} ng-click="removeFromFavorites(poi, $index)"></td>
 
-      <td style="text-align:center;" ng-click="setPOIName($index)">
+      <td style="text-align:center;" ng-click="">
           <button type="button" class="glyphicon glyphicon-plus" data-toggle="modal" data-target="#myModal">Add Review</button>
 
           <div id="myModal" class="modal fade" role="dialog">
@@ -103,7 +103,7 @@ select {
               
               <div class="modal-content">
               <div class="modal-header">
-                <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">What do you think about this place?</h4>
               </div>
               <div class="modal-body">
@@ -116,7 +116,7 @@ select {
                     </div>
               </div>
               <br/>
-              <button type="button" id="updateCapacityBtn" class="btn btn-info" ng-click="acceptReview(userReview)">Add</button>
+              <button type="button" id="updateCapacityBtn" class="btn btn-info " ng-click="acceptReview(poi, $index, userReview)">Add</button>
               <button type="button" id="capacityModalClose" class="btn btn-default" data-dismiss="modal">Close</button>
               </div>
               </div> 
