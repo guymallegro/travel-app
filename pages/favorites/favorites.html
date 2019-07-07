@@ -77,7 +77,7 @@ select {
                 ng-repeat="poi in favorites | unique: 'category'" 
                 value="{{poi.category}}">{{poi.category}}</option>
     </select>
-    <button ng-click="sortBy('rank')">Sort by rank</button>
+    <button ng-click="saveFavoritePoints()">Save favorite points</button>
   </div>
   <table width="100%" class="table" id="poi">
     <thead>

@@ -72,6 +72,25 @@ angular.module("myApp")
         $scope.propertyName = propertyName;
       };
 
+    $scope.saveFavoritePoints = function(){
+        favorites = $window.localStorage.getItem('vacation-favorites')
+        favorites = favorites ? favorites.split(',') : [];
+        for(var i=0;i<favorites.length;i++){
+            $http({
+                method: "PUT",
+                url: "http://localhost:3000/users/addFavoritePOI",
+                headers: {
+                    'x-auth-token': token
+                },
+                data: {
+                    poiName: favorites[i]
+                }
+            }).then(function (res) {
+            }, function (response) {
+            });
+        }
+    }
+
       $scope.acceptReview = function(poi, userReview){
         dateReview = getDate();
         $http.get('http://localhost:3000/poi/getDetails?poiName='+poi.poiName)
