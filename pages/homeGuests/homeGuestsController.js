@@ -20,12 +20,12 @@ angular.module("myApp")
               if(randomPositions.indexOf(r) === -1){
                 randomPositions.push(r);
                 $scope.threeRandomPoints.push(points[r])
-              } 
+              }
           }
         
 
     }).catch(function(response) {
-      console.error('Error occurred:', response.status, response.data);
+      // console.error('Error occurred:', response.status, response.data);
     }).finally(function() {
          console.log("Task Finished.");
     });
@@ -38,11 +38,12 @@ angular.module("myApp")
       $scope.loggedIn=false;
   }
 
+
   
   
   $scope.openPOIPage = function (poiName){
     pointName = poiName.poiName;
-    $location.url("/chosenPOI")
+    $location.url("/chosenPOI?poiName="+pointName);
 }
 
     $scope.moveToRegister = function(){

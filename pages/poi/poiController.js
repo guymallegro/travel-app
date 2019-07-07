@@ -33,7 +33,7 @@ angular.module("myApp")
     }).then(function (response){
             result = response.data;
             result.forEach(clean);
-            $scope.favorites = result;
+            $scope.favorites =result;
         }).catch(function(response) {
           console.error('Error occurred:', response.status, response.data);
         }).finally(function() {
@@ -84,6 +84,7 @@ angular.module("myApp")
             }
         }).then(function (res) {
             $window.alert("The point added to favorites successfully!");
+            location.reload();
         }, function (response) {
             $window.alert("The point is already saved in your favorites");
         });
@@ -95,6 +96,7 @@ angular.module("myApp")
         .then(function (response) {
             $window.alert("The point removed from favorites successfully!");
             $scope.$root.favorite = "glyphicon glyphicon-heart"
+            location.reload();
         }, function (response) {
             console.log(response)
         });
@@ -104,7 +106,7 @@ angular.module("myApp")
 
     function clean(value) {
         delete value["description"];
-        // delete value["image"];
+        delete value["image"];
         delete value["dateFirstReview"];
         delete value["firstReview"];
         delete value["dateSecondReview"];

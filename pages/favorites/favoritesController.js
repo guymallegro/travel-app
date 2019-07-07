@@ -25,7 +25,7 @@ angular.module("myApp")
 
     $scope.openPOIPage = function (poiName){
         pointName = poiName.poiName;
-        $location.url("/chosenPOI")
+        $location.url("/chosenPOI?poiName="+pointName);
     }
     
     $scope.removeFromFavorites = function (poi, index){
@@ -33,7 +33,6 @@ angular.module("myApp")
         let poiName = poi.poiName;
         $http.delete('http://localhost:3000/users/removeFavoritePOI', {data: {'poiName':poiName},headers: {'x-auth-token': token,'Content-Type': 'application/json;charset=utf-8'}})
         .then(function (response) {
-            $window.alert("The point removed from favorites successfully!");
         }, function (response) {
             console.log(response)
         });
@@ -59,7 +58,65 @@ angular.module("myApp")
         $scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
         $scope.propertyName = propertyName;
       };
-});
+
+      $scope.acceptReview = function(poi, userReview){
+        dateReview = getDate();
+        $http.get('http://localhost:3000/poi/getDetails?poiName='+poi.poiName)
+        .then(function (response){
+            ans = response.data;
+            console.log("name: " +poi.poiName);
+            alert(ans[0].firstReview);
+            if (ans[0].firstReview == null){
+                console.log("first case if");
+                addReview (poi.poiName, userReview, dateReview, 1);
+            }
+            else if (ans[0].secondReview == ""){
+                console.log("second case if");
+                addReview (poi.poiName, userReview, dateReview, 2);
+            }
+            else{
+                console.log("third case if");
+                if (ans[0].dateFirstReview > ans[0].dateSecondReview){
+                    addReview (poi.poiName, userReview, dateReview, 2);
+                }
+                else{
+                    addReview (poi.poiName, userReview, dateReview, 1);
+                }
+            }},
+            function (response) {
+                console.error('Error occurred:', response.status, response.data);
+            })};
+
+    function addReview  (poi, userReview, dateReview, index){
+        token = $window.sessionStorage.getItem('vacation-token');
+        $http({
+            method: "PUT",
+            url: "http://localhost:3000/poi/addReview",
+            headers: {
+                'x-auth-token': token
+            },
+            data: {
+                reviewIndex: index,
+                review: userReview,
+                date: dateReview,
+                poiName: poi.poiName
+            }
+        }).then(function (res) { alert("yahhhhhh!") },
+        function (response) { console.error('Error occurred:', response.status, response.data);   });
+    }
+
+
+    function getDate (){
+        today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1;
+        var yyyy = today.getFullYear();
+        
+        if(dd<10) dd='0'+dd;
+        if(mm<10) mm='0'+mm;
+        return (mm+"/"+dd+"/"+yyyy);
+    };
+
 app.filter('unique', function () {
 
   return function (items, filterOn) {
@@ -95,54 +152,5 @@ app.filter('unique', function () {
       }
       return items;
   };
-
-
-//   function addReview (pointName, userReview, dateReview, index){
-//     if (index == 0){
-//         index = getIndex (pointName);}
-//     if (dateReview == 0){
-//         dateReview = getDate("/");}
-//     $http({
-//         method: "PUT",
-//         url: "http://localhost:3000/poi/addReview",
-//         data: {
-//             reviewIndex: index,
-//             review: userReview,
-//             date: dateReview,
-//             poiName: pointName
-//         }
-//     }).then(function (res) { },
-//     function (response) {    });
-//     }
-
-//     function getIndex(poiName){
-//         parameters=$location.search();
-//         console.log("paraameters: " + parameters);
-//         $http.get('http://localhost:3000/poi/getDetails?poiName='+parameters.poiName)
-//         .then(function (response){
-//             ans = response.data;
-//             if (ans.equals("The given POI doesn't exist.")){
-//                 return 1;
-//             }
-//             if (ans[0].secondReview == null){
-//                 return 2;
-//             }
-//             else{
-//                 addReview(poiName, ans[0].dateSecondReview, ans[0].dateFirstReview, 1);
-//                 return 2;
-//             }},
-//             function (response) {
-//                 console.error('Error occurred:', response.status, response.data);
-//             })};
-
-//         function getDate (sp){
-//             today = new Date();
-//             var dd = today.getDate();
-//             var mm = today.getMonth() + 1;
-//             var yyyy = today.getFullYear();
-            
-//             if(dd<10) dd='0'+dd;
-//             if(mm<10) mm='0'+mm;
-//             return (mm+sp+dd+sp+yyyy);
-//         };
+});
 });
