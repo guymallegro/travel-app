@@ -1,12 +1,12 @@
 angular.module("myApp")
 .controller("poiController", function ($scope,$http, $window, $location) {
+    var token = $window.sessionStorage.getItem('vacation-token');
     if(token){
         $scope.loggedIn=true;
     }
     else{
         $scope.loggedIn=false;
     }
-    let favor = true;
     pointName = "";
     $scope.favorite = "glyphicon glyphicon-heart-empty";
     $http.get('http://localhost:3000/poi/getAll').then(function (response){
@@ -21,32 +21,20 @@ angular.module("myApp")
     }).finally(function() {
          console.log("Task Finished.");
     });
-
-    var token = $window.sessionStorage.getItem('vacation-token');
-    if(token){
-    $http({
-        method: "POST",
-        url: "http://localhost:3000/users/getFavorites",
-        headers: {
-            'x-auth-token': token
-        }
-    }).then(function (response){
-            result = response.data;
-            result.forEach(clean);
-            $scope.favorites =result;
-        }).catch(function(response) {
-          console.error('Error occurred:', response.status, response.data);
-        }).finally(function() {
-             console.log("Task Finished.");
-        });
-    }
+    tempFavorites = $window.localStorage.getItem('vacation-favorites')
+    $scope.favorites = tempFavorites ? tempFavorites.split(',') : [];
 
     $scope.manageFavorites = function(poi,heart){
         pointName = poi.poiName;
-        if (heart === "glyphicon glyphicon-heart-empty")
+        if (heart === "glyphicon glyphicon-heart-empty"){
             addToFavorites(pointName);
+            $window.alert("The point was added to the favorites successfully!");
+            location.reload();
+        }
         else{
             removeFromFavorites(pointName);
+            $window.alert("The point was removed from the favorites successfully!");
+            location.reload();
         }
     }
     $scope.openPOIPage = function (poiName){
@@ -58,51 +46,29 @@ angular.module("myApp")
         pointName = poi["poiName"];
         if($scope.favorites){
             for(var i=0; i< $scope.favorites.length;i++){
-                if($scope.favorites[i].poiName == pointName)
+                if($scope.favorites[i] == pointName)
                 return "glyphicon glyphicon-heart";
             }
         }
         return "glyphicon glyphicon-heart-empty";
     }
-
-    if(token){
-        $scope.loggedIn=true;
-    }
-    else{
-        $scope.loggedIn=false;
-    }
     
     function addToFavorites (poiName){
-        $http({
-            method: "PUT",
-            url: "http://localhost:3000/users/addFavoritePOI",
-            headers: {
-                'x-auth-token': token
-            },
-            data: {
-                poiName: poiName
-            }
-        }).then(function (res) {
-            $window.alert("The point added to favorites successfully!");
-            location.reload();
-        }, function (response) {
-            $window.alert("The point is already saved in your favorites");
-        });
+        existing = $window.localStorage.getItem('vacation-favorites')
+        existing = existing ? existing.split(',') : [];
+        existing.push(poiName);
+        $window.localStorage.setItem('vacation-favorites', existing.toString());
     }
     
     function removeFromFavorites(poiName){
-        let name = poiName.poiName;
-        $http.delete('http://localhost:3000/users/removeFavoritePOI', {data: {'poiName':poiName},headers: {'x-auth-token': token,'Content-Type': 'application/json;charset=utf-8'}})
-        .then(function (response) {
-            $window.alert("The point removed from favorites successfully!");
-            $scope.$root.favorite = "glyphicon glyphicon-heart"
-            location.reload();
-        }, function (response) {
-            console.log(response)
-        });
+        existing = $window.localStorage.getItem('vacation-favorites')
+        existing = existing ? existing.split(',') : [];
+        var index = existing.indexOf(poiName);
+        if (index > -1) {
+           existing.splice(index, 1);
+        }
+        $window.localStorage.setItem('vacation-favorites', existing.toString());
     }
-
-        
 
     function clean(value) {
         delete value["description"];

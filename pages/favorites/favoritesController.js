@@ -3,14 +3,9 @@ angular.module("myApp")
     pointName = "";
     var token = $window.sessionStorage.getItem('vacation-token');
     $scope.$root.favorite = "glyphicon glyphicon-minus-sign";
-    $http({
-        method: "POST",
-        url: "http://localhost:3000/users/getFavorites",
-        headers: {
-            'x-auth-token': token
-        }
-    }).then(function (response){
+    $http.get('http://localhost:3000/poi/getAll').then(function (response){
             result = response.data;
+            deleteNotFavorite(result)
             result.forEach(clean);
             $scope.favorites = result;
             $scope.reverse = true;
@@ -48,13 +43,27 @@ angular.module("myApp")
         delete value["dateSecondReview"];
         delete value["secondReview"];
       }
-      $scope.predicate = function( categoryFilter ) {
+
+    function deleteNotFavorite(points){
+        favorites = $window.localStorage.getItem('vacation-favorites')
+        favorites = favorites ? favorites.split(',') : [];
+        var i=0;
+        while(i<points.length){
+            console.log(points[i].poiName)
+            if(!favorites.includes(points[i].poiName)){
+                points.splice(i,1)
+            }
+            else
+                i++;
+        }
+    }
+    $scope.predicate = function( categoryFilter ) {
         return function( item ) {
           return !categoryFilter || item.category === categoryFilter;
         };
       };
 
-      $scope.sortBy = function(propertyName) {
+    $scope.sortBy = function(propertyName) {
         $scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
         $scope.propertyName = propertyName;
       };
