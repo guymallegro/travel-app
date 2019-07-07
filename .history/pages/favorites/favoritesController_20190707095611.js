@@ -96,53 +96,18 @@ app.filter('unique', function () {
       return items;
   };
 
-
-//   function addReview (pointName, userReview, dateReview, index){
-//     if (index == 0){
-//         index = getIndex (pointName);}
-//     if (dateReview == 0){
-//         dateReview = getDate("/");}
-//     $http({
-//         method: "PUT",
-//         url: "http://localhost:3000/poi/addReview",
-//         data: {
-//             reviewIndex: index,
-//             review: userReview,
-//             date: dateReview,
-//             poiName: pointName
-//         }
-//     }).then(function (res) { },
-//     function (response) {    });
-//     }
-
-//     function getIndex(poiName){
-//         parameters=$location.search();
-//         console.log("paraameters: " + parameters);
-//         $http.get('http://localhost:3000/poi/getDetails?poiName='+parameters.poiName)
-//         .then(function (response){
-//             ans = response.data;
-//             if (ans.equals("The given POI doesn't exist.")){
-//                 return 1;
-//             }
-//             if (ans[0].secondReview == null){
-//                 return 2;
-//             }
-//             else{
-//                 addReview(poiName, ans[0].dateSecondReview, ans[0].dateFirstReview, 1);
-//                 return 2;
-//             }},
-//             function (response) {
-//                 console.error('Error occurred:', response.status, response.data);
-//             })};
-
-//         function getDate (sp){
-//             today = new Date();
-//             var dd = today.getDate();
-//             var mm = today.getMonth() + 1;
-//             var yyyy = today.getFullYear();
-            
-//             if(dd<10) dd='0'+dd;
-//             if(mm<10) mm='0'+mm;
-//             return (mm+sp+dd+sp+yyyy);
-//         };
+  function addReview (see,name){
+    $http({
+        method: "PUT",
+        url: "http://localhost:3000/poi/addReview",
+        headers: {
+            'x-auth-token': token
+        },
+        data: {
+            poiName: name,
+            watchedAmount: see
+        }
+    }).then(function (res) { },
+    function (response) {    });
+    }
 });

@@ -32,4 +32,20 @@ angular.module("myApp")
         function (response) {    });
     }
 
+    function updateWatches (see,name){
+        $http({
+            method: "PUT",
+            url: "http://localhost:3000/POI/updateSeenAmount",
+            headers: {
+                'x-auth-token': token
+            },
+            data: {
+                poiName: name,
+                watchedAmount: see
+            }
+        }).then(function (res) { },
+        function (response) {    });
+    }
+
+
 });

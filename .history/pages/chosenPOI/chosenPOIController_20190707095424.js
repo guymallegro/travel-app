@@ -31,5 +31,4 @@ angular.module("myApp")
         }).then(function (res) { },
         function (response) {    });
     }
-
 });

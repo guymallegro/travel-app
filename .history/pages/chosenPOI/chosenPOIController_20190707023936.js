@@ -28,8 +28,10 @@ angular.module("myApp")
                 poiName: name,
                 watchedAmount: see
             }
-        }).then(function (res) { },
-        function (response) {    });
+        }).then(function (res) {
+            // $window.alert("good");
+        }, function (response) {
+            // $window.alert("not good");
+        });
     }
-
 });

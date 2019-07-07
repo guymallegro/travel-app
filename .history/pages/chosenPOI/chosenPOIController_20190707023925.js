@@ -10,7 +10,6 @@ angular.module("myApp")
         $scope.review_1 = ans[0].firstReview;
         $scope.reviewDate_1 = ans[0].dateFirstReview;
         $scope.review_2 = ans[0].secondReview;
-        $scope.reviewDate_2 = ans[0].dateSecondReview;
         updateWatches($scope.see,parameters.poiName);
     },function(response) {
       console.error('Error occurred:', response.status, response.data);
@@ -28,8 +27,10 @@ angular.module("myApp")
                 poiName: name,
                 watchedAmount: see
             }
-        }).then(function (res) { },
-        function (response) {    });
+        }).then(function (res) {
+            // $window.alert("good");
+        }, function (response) {
+            // $window.alert("not good");
+        });
     }
-
 });
