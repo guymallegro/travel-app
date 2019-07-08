@@ -1,6 +1,8 @@
 angular.module("myApp")
 .controller("poiController", function ($scope,$http, $window, $location) {
     var token = $window.sessionStorage.getItem('vacation-token');
+    var userName = $window.sessionStorage.getItem('vacation-user-name');
+
     if(token){
         $scope.loggedIn=true;
     }
@@ -21,7 +23,7 @@ angular.module("myApp")
     }).finally(function() {
          console.log("Task Finished.");
     });
-    tempFavorites = $window.localStorage.getItem('vacation-favorites')
+    tempFavorites = $window.localStorage.getItem('vacation-favorites-'+userName)
     $scope.favorites = tempFavorites ? tempFavorites.split(',') : [];
 
     $scope.manageFavorites = function(poi,heart){
@@ -54,20 +56,20 @@ angular.module("myApp")
     }
     
     function addToFavorites (poiName){
-        existing = $window.localStorage.getItem('vacation-favorites')
+        existing = $window.localStorage.getItem('vacation-favorites-'+userName)
         existing = existing ? existing.split(',') : [];
         existing.push(poiName);
-        $window.localStorage.setItem('vacation-favorites', existing.toString());
+        $window.localStorage.setItem('vacation-favorites-'+userName, existing.toString());
     }
     
     function removeFromFavorites(poiName){
-        existing = $window.localStorage.getItem('vacation-favorites')
+        existing = $window.localStorage.getItem('vacation-favorites-'+userName)
         existing = existing ? existing.split(',') : [];
         var index = existing.indexOf(poiName);
         if (index > -1) {
            existing.splice(index, 1);
         }
-        $window.localStorage.setItem('vacation-favorites', existing.toString());
+        $window.localStorage.setItem('vacation-favorites-'+userName, existing.toString());
     }
 
     function clean(value) {
