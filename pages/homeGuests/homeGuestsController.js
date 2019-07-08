@@ -11,18 +11,15 @@ angular.module("myApp")
           }
           var randomPositions = []
           $scope.threeRandomPoints=[]
-
-          while(randomPositions.length < 3){
-              var r = Math.floor(Math.random()*(points.length-1)) + 1;
-              if(randomPositions.indexOf(r) === -1){
-                randomPositions.push(r);
-                $scope.threeRandomPoints.push(points[r])
-              }
-          }
-        
-
+          // while(randomPositions.length < 3){
+          //     var r = Math.floor(Math.random()*(points.length-1)) + 1;
+          //     if(randomPositions.indexOf(r) === -1){
+          //       randomPositions.push(r);
+          //       $scope.threeRandomPoints.push(points[r])
+          //     }
+          // }
     }).catch(function(response) {
-      // console.error('Error occurred:', response.status, response.data);
+      console.error('Error occurred:', response.status, response.data);
     }).finally(function() {
          console.log("Task Finished.");
     });
