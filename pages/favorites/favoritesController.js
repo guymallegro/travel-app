@@ -1,7 +1,6 @@
 angular.module("myApp")
 .controller("favoritesController", function ($scope,$http, $window,$location) {
     pointName = "";
-    first = true;
     $scope.rankMessage = "";
     var token = $window.sessionStorage.getItem('vacation-token');
     $scope.$root.favorite = "glyphicon glyphicon-minus-sign";
@@ -26,11 +25,7 @@ angular.module("myApp")
     }
 
     $scope.setPOIName = function (index){
-        if (first){
-            pointName = $scope.favorites[index].poiName;
-            first = false;
-        }
-        console.log("myyy name issss: "+ pointName);
+        pointName = $scope.favorites[index].poiName;
     }
     
     $scope.removeFromFavorites = function (poi,index){
@@ -62,7 +57,6 @@ angular.module("myApp")
         favorites = favorites ? favorites.split(',') : [];
         var i=0;
         while(i<points.length){
-            console.log(points[i].poiName)
             if(!favorites.includes(points[i].poiName)){
                 points.splice(i,1)
             }
@@ -100,7 +94,8 @@ angular.module("myApp")
       };
 
       $scope.acceptReview = function(userReview){
-        console.log("name: " +pointName)
+        var index = $scope.favorites.indexOf(poiName);
+        pointName = $scope.favorites[index].poiName;
         dateReview = getDate();
         $http.get('http://localhost:3000/poi/getDetails?poiName='+pointName)
         .then(function (response){
@@ -112,7 +107,6 @@ angular.module("myApp")
                 addReview (userReview, dateReview, 2);
             }
             else{
-                console.log("third case if");
                 if (ans[0].dateFirstReview > ans[0].dateSecondReview){
                     addReview (userReview, dateReview, 1);
                 }
@@ -120,7 +114,6 @@ angular.module("myApp")
                     addReview (userReview, dateReview, 2);
                 }
             }
-            first = true;
         },
             function (response) {
                 console.error('Error occurred:', response.status, response.data);

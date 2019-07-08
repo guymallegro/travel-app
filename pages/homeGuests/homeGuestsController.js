@@ -34,8 +34,6 @@ angular.module("myApp")
   else{
       $scope.loggedIn=false;
   }
-
-
   
   
   $scope.openPOIPage = function (poiName){
