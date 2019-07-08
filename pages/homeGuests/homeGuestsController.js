@@ -11,15 +11,18 @@ angular.module("myApp")
           }
           var randomPositions = []
           $scope.threeRandomPoints=[]
-
+          if(points.length<=3){
+            $scope.threeRandomPoints = points;
+          }
+          else{
           while(randomPositions.length < 3){
-              var r = Math.floor(Math.random()*(points.length-1)) + 1;
+              var r = Math.floor(Math.random()*(points.length-1));
               if(randomPositions.indexOf(r) === -1){
                 randomPositions.push(r);
                 $scope.threeRandomPoints.push(points[r])
               }
           }
-        
+          }
 
     }).catch(function(response) {
       // console.error('Error occurred:', response.status, response.data);
