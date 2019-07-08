@@ -11,6 +11,15 @@ angular.module("myApp")
           }
           var randomPositions = []
           $scope.threeRandomPoints=[]
+<<<<<<< HEAD
+          // while(randomPositions.length < 3){
+          //     var r = Math.floor(Math.random()*(points.length-1)) + 1;
+          //     if(randomPositions.indexOf(r) === -1){
+          //       randomPositions.push(r);
+          //       $scope.threeRandomPoints.push(points[r])
+          //     }
+          // }
+=======
           if(points.length<=3){
             $scope.threeRandomPoints = points;
           }
@@ -24,6 +33,7 @@ angular.module("myApp")
           }
           }
 
+>>>>>>> 15273c07ecb7417953308ac046477cc3b21716ca
     }).catch(function(response) {
       console.error('Error occurred:', response.status, response.data);
     }).finally(function() {

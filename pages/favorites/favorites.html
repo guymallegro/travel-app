@@ -87,14 +87,14 @@
       <tr>
         <th ng-click="sortBy('poiName')">Name</th>
         <th ng-click="sortBy('category')">Category</th>
-        <th ng-click="sortBy('rank')">Rank</th>
         <th ng-click="sortBy('watchedAmount')">Views</th>
+        <th ng-click="sortBy('rank')">Rank</th>
         <th>Favorites</th>
         <th>Add review</th>
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="poi in favorites | orderBy:propertyName:reverse | filter:predicate(categoryFilter)">
+      <tr ng-repeat="poi in filteredPois  = (favorites | filter:predicate(categoryFilter,searchString) | orderBy:propertyName:reverse)">
         <td ng-repeat="cell in poi" ng-click="openPOIPage(poi)">{{cell}}</td>
         <td ng-model="favorite" class={{favorite}} ng-click="removeFromFavorites(poi, $index)"></td>
 

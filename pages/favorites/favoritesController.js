@@ -3,6 +3,7 @@ angular.module("myApp")
     pointName = "";
     $scope.rankMessage = "";
     var token = $window.sessionStorage.getItem('vacation-token');
+    var userName = $window.sessionStorage.getItem('vacation-user-name');
     $scope.$root.favorite = "glyphicon glyphicon-minus-sign";
     $http.get('http://localhost:3000/poi/getAll').then(function (response){
             result = response.data;
@@ -30,7 +31,7 @@ angular.module("myApp")
     
     $scope.removeFromFavorites = function (poi,index){
         poiName=poi.poiName;
-        existing = $window.localStorage.getItem('vacation-favorites')
+        existing = $window.localStorage.getItem('vacation-favorites-'+userName)
         existing = existing ? existing.split(',') : [];
         $scope.favorites.splice (index, 1)
         var index = existing.indexOf(poiName);
@@ -38,7 +39,7 @@ angular.module("myApp")
            existing.splice(index, 1);
 
         }
-        $window.localStorage.setItem('vacation-favorites', existing.toString());
+        $window.localStorage.setItem('vacation-favorites-'+userName, existing.toString());
     }
 
     function clean(value) {
@@ -53,7 +54,7 @@ angular.module("myApp")
       }
 
     function deleteNotFavorite(points){
-        favorites = $window.localStorage.getItem('vacation-favorites')
+        favorites = $window.localStorage.getItem('vacation-favorites-'+userName)
         favorites = favorites ? favorites.split(',') : [];
         var i=0;
         while(i<points.length){
