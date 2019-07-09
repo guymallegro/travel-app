@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+      .jumbotron {
+            width:450px;
+            height: 350px;
+            background-image:url({{poiImage}});
+            background-size:cover;
+            margin: 0 auto;
+            }
+            .jumbotron img {
+            width:100%;
+            }
+            div.description {
+                font-size: 150%;
+                font-family: "Segoe UI";
+            }
+    </style>
+  </head>
+  <body>
+
+<main role="main">
+    <div class="jumbotron">
+        <div class="container">
+        </div>
+    </div>
+    <h1 class="display-3" ng-model="name" style="text-align: center">{{name}}</h1>
+    <div class="container">
+        <!-- Example row of columns -->
+        <div class="row">
+            <div class="description"><b>
+            <p ng-model="description"> {{description}}</p></b>
+            </div>
+            <div class="col-md-4">
+                <h2>Information</h2>
+                <p ng-model="rank">Rank: {{rank}}</p>
+                <p ng-model="see">Watches: {{see}}</p>
+            </div>
+            <div class="col-md-4">
+              <h2>Review</h2>
+              <p ng-model="reviewDate_1"> {{reviewDate_1}}</p>
+              <p ng-model="review_1"> {{review_1}}</p>
+            </div>
+            <div class="col-md-4">
+              <h2>Review</h2>
+              <p ng-model="reviewDate_2"> {{reviewDate_1}}</p>
+              <p ng-model="review_2"> {{review_2}}</p>
+            </div>
+      </div>
+        <hr>
+</main>
+    </div> <!-- /container -->
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <style>
+
+        body{
+            background-image: url("http://tiny.cc/gzah9y ");
+            background-size: cover;
+        }
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 900px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+
+        .jumbotron {
+            width: 100%;
+            /* background-color: white; */
+            /* opacity: 0.5; */
+            background-size: cover;
+        }
+
+        h1{
+            text-align: center;
+            font-size: larger;
+            color: white;
+        }
+
+        .jumbotron img {
+            width: 100%;
+            opacity: 1;
+        }
+
+        .container img:hover {
+            opacity: 0.5;
+        }
+    </style>
+</head>
+
+<body>
+
+    <main role="main">
+                    
+        <h1 class="display-3"><b>Rome</b></h1>
+        <div class="container">
+            <!-- Example row of columns -->
+            <div class="row">
+                <div class="col-md-4">
+                    <h2>{{threeRandomPoints[0].poiName}}</h2>
+                    <div class="hover">
+                        <img ng-src="{{threeRandomPoints[0].image}}" alt="Italian Trulli" width="350" height="350"
+                            ng-click="poi = threeRandomPoints[0]; openPOIPage(poi)">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <h2>{{threeRandomPoints[1].poiName}}</h2>
+                    <div class="hover">
+                        <img ng-src="{{threeRandomPoints[1].image}}" alt="Italian Trulli" width="350" height="350"
+                            ng-click="poi = threeRandomPoints[1]; openPOIPage(poi)">
+                    </div>
+
+
+                </div>
+                <div class="col-md-4">
+                    <h2>{{threeRandomPoints[2].poiName}}</h2>
+                    <div class="hover">
+                        <img ng-src="{{threeRandomPoints[2].image}}" alt="Italian Trulli" width="350" height="350"
+                            ng-click="poi = threeRandomPoints[2]; openPOIPage(poi)">
+                    </div>
+
+
+                </div>
+                <hr>
+    </main>
+    </div> <!-- /container -->
+</body>
+
+</html>

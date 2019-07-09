@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <style>
+    label {
+      /* Presentation */
+      font-size: 20px
+    }
+
+    /* Required Styling */
+
+    label input[type="checkbox"] {
+      display: none;
+    }
+
+    .custom-checkbox {
+      margin-left: 2em;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .custom-checkbox .glyphicon {
+      color: gold;
+      position: absolute;
+      top: 0.4em;
+      left: -1.25em;
+      font-size: 0.75em;
+    }
+
+    .custom-checkbox .glyphicon-star-empty {
+      color: gray;
+    }
+
+    .custom-checkbox .glyphicon-star {
+      opacity: 0;
+      transition: opacity 0.2s ease-in-out;
+    }
+
+    .custom-checkbox:hover .glyphicon-star {
+      opacity: 0.5;
+    }
+
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+
+    .jumbotron {
+      width: 450px;
+      height: 350px;
+      background-image:url({{poiImage}});
+      background-size: cover;
+      margin: 0 auto;
+    }
+
+    .jumbotron img {
+      width: 100%;
+    }
+
+    div.description {
+      font-size: 150%;
+      font-family: "Segoe UI";
+    }
+
+    #favor {
+      text-align: center;
+    }
+    button{
+  background: none;
+}
+  </style>
+</head>
+
+<body>
+
+  <main role="main">
+    <div class="jumbotron">
+      <div class="container">
+      </div>
+    </div>
+    <h1 class="display-3" ng-model="name" style="text-align: center">{{name}}</h1>
+    <div id=favor ng-show=loggedIn>
+      <label for="id-of-input" class="custom-checkbox">
+        <button id="id-of-input" ng-click="addToFavorites({{name}})">
+        <i class="glyphicon glyphicon-star-empty"></i>
+        <i class="glyphicon glyphicon-star"></i>
+        <span>Add To Favorite</span>
+      </label>
+    </div>
+    <div class="container">
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="description"><b>
+            <p ng-model="description"> {{description}}</p>
+          </b>
+        </div>
+        <div class="col-md-4">
+          <h2>Information</h2>
+          <p ng-model="rank">Rank: {{rank}}</p>
+          <p ng-model="see">Watches: {{see}}</p>
+        </div>
+        <div class="col-md-4">
+          <h2>User Review...</h2>
+          <p ng-model="reviewDate_1"> {{reviewDate_1}}</p>
+          <p ng-model="review_1"> {{review_1}}</p>
+        </div>
+        <div class="col-md-4">
+          <h2>User Review...</h2>
+          <p ng-model="reviewDate_2"> {{reviewDate_1}}</p>
+          <p ng-model="review_2"> {{review_2}}</p>
+        </div>
+      </div>
+      <hr>
+  </main>
+  </div> <!-- /container -->
+</body>
+
+</html>

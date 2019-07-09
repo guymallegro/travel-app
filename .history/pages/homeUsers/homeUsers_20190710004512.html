@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+
+        .jumbotron {
+            width: 50%;
+            background-image: url("http://tiny.cc/orbe9y");
+            opacity: 0.5;
+            background-size: cover;
+            margin: 0 auto;
+        }
+
+        .jumbotron img {
+            width: 100%;
+        }
+
+        .jumbotron h1 {
+            text-align: left;
+            font-family: "Segoe UI";
+        }
+
+        .container img:hover {
+            opacity: 0.5;
+        }
+
+        h2 {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="jumbotron text-center">
+        <div class="container">
+            <h1 class="display-3"><b> Welcome To Rome</b></h1>
+            </br>
+            </br>
+            </br>
+            </br>
+            </br>
+            /div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <div class="row">
+            <h2 style="text-align: center"><b> Maybe interest You</b></h2>
+            <div class="col-md-6">
+                <!-- <h2 class="glyphicon glyphicon-heart">{{recommends[0].poiName}}</h2> -->
+                <h2 class="glyphicon glyphicon-heart" style="text-size-adjust: 14">{{recommend_1.poiName}}</h2>
+                <div class="hover">
+                    <img ng-src="{{recommend_1.image}}" alt="Italian Trulli" width="350" height="350"
+                        ng-click="poi = recommend_1; openPOIPage(poi)">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h2 class="glyphicon glyphicon-heart" style="text-size-adjust: 14">{{recommend_2.poiName}}</h2>
+                <div class="hover">
+                    <img ng-src="{{recommend_2.image}}" alt="Italian Trulli" width="350" height="350"
+                        ng-click="poi = recommend_2; openPOIPage(poi)">
+                </div>
+            </div>
+            </br>
+            </br>
+            <h2 style="text-align: center"><b> You Recently saved</b></h2>
+            <div class="col-md-6">
+                <h2 class="glyphicon glyphicon-heart">{{saved_1}}</h2>
+                <div class="hover">
+                    <img ng-src="{{saved_1.image}}" alt="Italian Trulli" width="350" height="350"
+                        ng-click="poi = saved_1; openPOIPage(poi)">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h2 class="glyphicon glyphicon-heart">{{saved_2}}</h2>
+                <div class="hover">
+                    <img ng-src="{{saved_2.image}}" width="350" height="350"
+                        ng-click="poi = saved_2; openPOIPage(poi)">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
