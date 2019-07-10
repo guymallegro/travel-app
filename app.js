@@ -1,4 +1,5 @@
-let app = angular.module('myApp', ["ngRoute"]);
+let app = angular.module('myApp', ["ngRoute",'ui.sortable']);
+
 
 // config routes
 app.config(function($routeProvider,$windowProvider)  {
@@ -49,3 +50,4 @@ app.config(function($routeProvider,$windowProvider)  {
         
         .otherwise({ redirectTo: '/' });
 });
+

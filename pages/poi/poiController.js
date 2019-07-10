@@ -101,7 +101,7 @@ app.filter('unique', function () {
       }
 
       if ((filterOn || angular.isUndefined(filterOn)) && angular.isArray(items)) {
-          var hashCheck = {}, newItems = [];
+          var newItems = [];
 
           var extractValueToCompare = function (item) {
               if (angular.isObject(item) && angular.isString(filterOn)) {

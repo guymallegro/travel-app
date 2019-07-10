@@ -74,17 +74,12 @@
 </head>
 
 <body>
-  <div id="selectCategory">
-    <p>Category :</p>
-    <select class="form-control" ng-model="categoryFilter" width="10%">
-      <option value="">All</option>
-      <option ng-repeat="poi in favorites | unique: 'category'" value="{{poi.category}}">{{poi.category}}</option>
-    </select>
-    <button ng-click="saveFavoritePoints()">Save favorite points</button>
-  </div>
+  <button ng-click="saveFavoritePoints()">Save favorite points</button>
+  <button ng-click="saveOrder()">Save order</button>
   <table width="100%" class="table" id="poi">
     <thead>
       <tr>
+        <th>#</th>
         <th ng-click="sortBy('poiName')">Name</th>
         <th ng-click="sortBy('category')">Category</th>
         <th ng-click="sortBy('watchedAmount')">Views</th>
@@ -93,8 +88,9 @@
         <th>Add review</th>
       </tr>
     </thead>
-    <tbody>
-      <tr ng-repeat="poi in filteredPois  = (favorites | filter:predicate(categoryFilter,searchString) | orderBy:propertyName:reverse)">
+    <tbody ui-sortable ng-model="filteredPois">
+      <tr ng-repeat="poi in filteredPois  = (favorites)">
+        <td>{{$index}}</td>
         <td ng-repeat="cell in poi" ng-click="openPOIPage(poi)">{{cell}}</td>
         <td ng-model="favorite" class={{favorite}} ng-click="removeFromFavorites(poi, $index)"></td>
 

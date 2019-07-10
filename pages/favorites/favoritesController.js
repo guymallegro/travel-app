@@ -5,15 +5,13 @@ angular.module("myApp")
     var token = $window.sessionStorage.getItem('vacation-token');
     var userName = $window.sessionStorage.getItem('vacation-user-name');
     $scope.$root.favorite = "glyphicon glyphicon-minus-sign";
+    $scope.reverse=false;
     $http.get('http://localhost:3000/poi/getAll').then(function (response){
             result = response.data;
             deleteNotFavorite(result)
             result.forEach(clean);
             $scope.favorites = result;
-            $scope.reverse = true;
-            $scope.propertyName = 'poiName';
-            $scope.isQVisible=true;
-            $scope.sortBy('poiName');
+            $scope.propertyName = 'rank';
         }).catch(function(response) {
           console.error('Error occurred:', response.status, response.data);
         }).finally(function() {
@@ -65,6 +63,16 @@ angular.module("myApp")
                 i++;
             }
         }
+        afterOrder=[]
+        for(var i=0;i<favorites.length;i++){
+            for(var j=0;j<points.length;j++){
+                if(points[j].poiName == favorites[i]){
+                    afterOrder.push(points[j])
+                    break;
+                }
+            }
+        }
+        points=afterOrder;
     }
 
     $scope.setRank = function (userRank){
@@ -83,16 +91,24 @@ angular.module("myApp")
         function (response) { console.error('Error occurred:', response.status, response.data);   });
     }
 
-    $scope.predicate = function( categoryFilter ) {
-        return function( item ) {
-          return !categoryFilter || item.category === categoryFilter;
-        };
-      };
-
     $scope.sortBy = function(propertyName) {
         $scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
         $scope.propertyName = propertyName;
       };
+
+      $scope.objectKeys = function(obj){
+        return Object.keys(obj);
+      }
+    
+    $scope.saveOrder = function(){
+        tableJson = JSON.parse(angular.toJson($scope.filteredPois))
+        newOrder=[]
+        for(var i=0;i<tableJson.length;i++){
+            name=tableJson[i].poiName
+            newOrder.push(name)
+        }
+        $window.localStorage.setItem('vacation-favorites-'+userName, newOrder.toString());
+    }
 
       $scope.acceptReview = function(userReview){
         var index = $scope.favorites.indexOf(poiName);
@@ -149,41 +165,4 @@ angular.module("myApp")
         if(mm<10) mm='0'+mm;
         return (mm+"/"+dd+"/"+yyyy);
     };
-
-app.filter('unique', function () {
-
-  return function (items, filterOn) {
-      if (filterOn === false) {
-          return items;
-      }
-      if ((filterOn || angular.isUndefined(filterOn)) && angular.isArray(items)) {
-          var hashCheck = {}, newItems = [];
-
-          var extractValueToCompare = function (item) {
-              if (angular.isObject(item) && angular.isString(filterOn)) {
-                  return item[filterOn];
-              } else {
-                  return item;
-              }
-          };
-
-          angular.forEach(items, function (item) {
-              var valueToCheck, isDuplicate = false;
-
-              for (var i = 0; i < newItems.length; i++) {
-                  if (angular.equals(extractValueToCompare(newItems[i]), extractValueToCompare(item))) {
-                      isDuplicate = true;
-                      break;
-                  }
-              }
-              if (!isDuplicate) {
-                  newItems.push(item);
-              }
-
-          });
-          items = newItems;
-      }
-      return items;
-  };
-});
 });
