@@ -113,7 +113,7 @@
         <td ng-repeat="cell in poi" ng-click="openPOIPage(poi)">{{cell}}</td>
         <td ng-model="favorite" class={{favorite}} ng-click="removeFromFavorites(poi, $index)"></td>
 
-        <td style="text-align:center;" ng-click="setPOIName(poi, $index)">
+        <td style="text-align:center;" ng-click="setPOIName($index)">
           <button type="button" class="glyphicon glyphicon-plus" data-toggle="modal" data-target="#myModal">Add
             Review</button>
         </td>

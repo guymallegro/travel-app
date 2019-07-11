@@ -26,7 +26,9 @@ angular.module("myApp")
     }
 
     $scope.setPOIName = function (poiName, index){
-        pointName = poiName.poiName;
+        pointName = poiName;
+        console.log(pointName);
+        // pointName = $scope.favorites[index].poiName;
     }
     
     $scope.removeFromFavorites = function (poi,index){
@@ -95,6 +97,8 @@ angular.module("myApp")
       };
 
       $scope.acceptReview = function(userReview){
+        // var index = $scope.favorites.indexOf(pointName);
+        // pointName = $scope.favorites[index].poiName;
         dateReview = getDate();
         $http.get('http://localhost:3000/poi/getDetails?poiName='+pointName)
         .then(function (response){

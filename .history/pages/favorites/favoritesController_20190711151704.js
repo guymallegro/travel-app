@@ -95,6 +95,8 @@ angular.module("myApp")
       };
 
       $scope.acceptReview = function(userReview){
+        // var index = $scope.favorites.indexOf(pointName);
+        // pointName = $scope.favorites[index].poiName;
         dateReview = getDate();
         $http.get('http://localhost:3000/poi/getDetails?poiName='+pointName)
         .then(function (response){
