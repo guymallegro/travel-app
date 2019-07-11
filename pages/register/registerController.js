@@ -9,7 +9,7 @@ angular.module("myApp")
     });
 
     $scope.register = function(userName, password, firstName, lastName, country, city, email, firstQuestion, secondQuestion, firstAnswer, secondAnswer, firstInterest, secondInterest){
-        $http.post('http://localhost:3000/users/register',{userName:userName,password:password, firstName:firstName, lastName:lastName, country:country, city:city, email:email, firstQuestion:firstQuestion, secondQuestion:secondQuestion, firstAnswer:firstAnswer, secondAnswer:secondAnswer, firstInterest:firstInterest, secondInterest:secondInterest}).then(function (response){
+        $http.post('http://localhost:3000/users/register',{userName:userName,password:password, firstName:firstName, lastName:lastName, country:country, city:city, email:email, firstQuestion:firstQuestion, secondQuestion:secondQuestion, firstAnswer:firstAnswer, secondAnswer:secondAnswer, firstInterest:firstInterest.categoryName, secondInterest:secondInterest.categoryName}).then(function (response){
             $location.url("/login")
     }).catch(function(response) {
           console.error('Error occurred:', response.status, response.data);
