@@ -9,6 +9,10 @@ angular.module("myApp")
     });
 
     $scope.register = function(userName, password, firstName, lastName, country, city, email, firstQuestion, secondQuestion, firstAnswer, secondAnswer, firstInterest, secondInterest){
+        if (firstInterest.categoryName == secondInterest.categoryName){
+            $scope.error = "please choose different interesting";
+            return;
+        }
         $http.post('http://localhost:3000/users/register',{userName:userName,password:password, firstName:firstName, lastName:lastName, country:country, city:city, email:email, firstQuestion:firstQuestion, secondQuestion:secondQuestion, firstAnswer:firstAnswer, secondAnswer:secondAnswer, firstInterest:firstInterest.categoryName, secondInterest:secondInterest.categoryName}).then(function (response){
             $location.url("/login")
     }).catch(function(response) {
@@ -21,5 +25,5 @@ angular.module("myApp")
 
     $scope.countries=["Australia","Bolivia","China","Denemark","Israel","Latvia","Monaco","August","Norway","Panama","Switzerland","USA"]
     $scope.firstQuestions=["What is your middle name?", "What is your favorite book?"]
-    $scope.secondQuestions=["What was your firsts pet name?", "What is your favorite book?"]
+    $scope.secondQuestions=["What was your firsts pet name?", "What is the name of your grandmother?"]
 });
