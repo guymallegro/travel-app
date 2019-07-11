@@ -38,8 +38,8 @@ angular.module("myApp")
         $location.url("/chosenPOI?poiName="+pointName);
     }
 
-    $scope.setPOIName = function (index){
-        pointName = $scope.favorites[index].poiName;
+    $scope.setPOIName = function (poi){
+        pointName = poi.poiName;
     }
     
     $scope.removeFromFavorites = function (poi,index){
@@ -94,6 +94,7 @@ angular.module("myApp")
     }
 
     $scope.setRank = function (userRank){
+        for(var i=0;i<2;i++){
         token = $window.sessionStorage.getItem('vacation-token');
         $http({
             method: "PUT",
@@ -107,6 +108,7 @@ angular.module("myApp")
             }
         }).then(function (res) { $scope.rankMessage ="your rank: " + userRank },
         function (response) { console.error('Error occurred:', response.status, response.data);   });
+    }
     }
 
     $scope.objectKeys = function(obj){
@@ -135,8 +137,6 @@ angular.module("myApp")
     }
 
       $scope.acceptReview = function(userReview){
-        var index = $scope.favorites.indexOf(poiName);
-        pointName = $scope.favorites[index].poiName;
         dateReview = getDate();
         $http.get('http://localhost:3000/poi/getDetails?poiName='+pointName)
         .then(function (response){
