@@ -13,6 +13,7 @@ angular.module("myApp")
             $location.url("/login")
     }).catch(function(response) {
           console.error('Error occurred:', response.status, response.data);
+          $scope.error = response.data;
         }).finally(function() {
              console.log("Task Finished.");
         });

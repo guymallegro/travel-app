@@ -60,5 +60,6 @@
                 <button type="submit" ng-disabled="form.$invalid || vm.dataLoading" ng-click="register(vm.user.userName,vm.user.password,vm.user.firstName,vm.user.lastName,vm.user.country,vm.user.city, vm.user.email, vm.user.firstQuestion, vm.user.secondQuestion, vm.user.firstAnswer, vm.user.secondAnswer,vm.user.firstInterest, vm.user.secondInterest)" class="btn btn-primary">Register</button>
                 <a href="#!/login" class="btn btn-link">Cancel</a>
             </div>
+            <p style="color: red; font-size: large;"><b>{{error}}</b></p>
         </form>
     </div>
