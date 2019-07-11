@@ -18,7 +18,6 @@
 - User Name: sapsap    Password: 123456SSS
 - User Name: test      Password: pass123
 - User Name: danny     Password: pass123
-- User Name: tal       Password: 123fdge
 
 ---
 
