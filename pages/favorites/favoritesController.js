@@ -38,8 +38,8 @@ angular.module("myApp")
         $location.url("/chosenPOI?poiName="+pointName);
     }
 
-    $scope.setPOIName = function (poiName, index){
-        pointName = poiName.poiName;
+    $scope.setPOIName = function (poi){
+        pointName = poi.poiName;
     }
     
     $scope.removeFromFavorites = function (poi,index){
@@ -146,7 +146,7 @@ angular.module("myApp")
                 addReview (userReview, dateReview, 2);
             }
             else{
-                if (ans[0].dateFirstReview > ans[0].dateSecondReview){
+                if (ans[0].dateFirstReview < ans[0].dateSecondReview){
                     addReview (userReview, dateReview, 1);
                 }
                 else{

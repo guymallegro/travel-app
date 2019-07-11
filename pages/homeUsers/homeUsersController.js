@@ -10,6 +10,7 @@ angular.module("myApp")
         existing = $window.localStorage.getItem('vacation-favorites-' + userName)
         existing = existing ? existing.split(',') : [];
         $scope.$root.favoritesNumber=existing.length;
+        if(token){
         $http({
             method: "POST",
             url: "http://localhost:3000/users/getRecommendation",
@@ -24,6 +25,7 @@ angular.module("myApp")
         }, function (response) {
             console.error('Error occurred:', response.status, response.data);
         });
+    }
 
         function setSaved() {
             existing = $window.localStorage.getItem('vacation-favorites-' + userName)

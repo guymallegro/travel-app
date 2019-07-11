@@ -55,10 +55,11 @@ angular.module("myApp")
     }
 
     $scope.logout = function () {
+      $window.location.reload();
       $scope.currentUser = "Guest";
       $location.url("/homeGuests");
-      $window.location.reload();
       $window.sessionStorage.clear();
+
     }
 
   });
