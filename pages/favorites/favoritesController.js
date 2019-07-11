@@ -148,7 +148,7 @@ angular.module("myApp")
                 addReview (userReview, dateReview, 2);
             }
             else{
-                if (ans[0].dateFirstReview > ans[0].dateSecondReview){
+                if (ans[0].dateFirstReview < ans[0].dateSecondReview){
                     addReview (userReview, dateReview, 1);
                 }
                 else{
