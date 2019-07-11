@@ -5,20 +5,33 @@ angular.module("myApp")
     var token = $window.sessionStorage.getItem('vacation-token');
     var userName = $window.sessionStorage.getItem('vacation-user-name');
     $scope.$root.favorite = "glyphicon glyphicon-minus-sign";
+    $scope.reverse=false;
     $http.get('http://localhost:3000/poi/getAll').then(function (response){
             result = response.data;
-            deleteNotFavorite(result)
+            result=deleteNotFavorite(result)
             result.forEach(clean);
             $scope.favorites = result;
-            $scope.reverse = true;
-            $scope.propertyName = 'poiName';
-            $scope.isQVisible=true;
-            $scope.sortBy('poiName');
+            $scope.propertyName = 'rank';
         }).catch(function(response) {
           console.error('Error occurred:', response.status, response.data);
         }).finally(function() {
              console.log("Task Finished.");
         });
+
+    $http({
+            method: "POST",
+            url: "http://localhost:3000/users/getFavorites",
+            headers: {
+                'x-auth-token': token
+            }
+        }).then(function (response){
+                $scope.current=response.data;
+            }).catch(function(response) {
+              console.error('Error occurred:', response.status, response.data);
+            }).finally(function() {
+                 console.log("Task Finished.");
+            });
+
 
     $scope.openPOIPage = function (poiName){
         pointName = poiName.poiName;
@@ -40,6 +53,9 @@ angular.module("myApp")
 
         }
         $window.localStorage.setItem('vacation-favorites-'+userName, existing.toString());
+        existing = $window.localStorage.getItem('vacation-favorites-' + userName)
+        existing = existing ? existing.split(',') : [];
+        $scope.$root.favoritesNumber=existing.length;
     }
 
     function clean(value) {
@@ -65,6 +81,16 @@ angular.module("myApp")
                 i++;
             }
         }
+        afterOrder=[]
+        for(var i=0;i<favorites.length;i++){
+            for(var j=0;j<points.length;j++){
+                if(points[j].poiName == favorites[i]){
+                    afterOrder.push(points[j])
+                    break;
+                }
+            }
+        }
+        return afterOrder;
     }
 
     $scope.setRank = function (userRank){
@@ -83,16 +109,30 @@ angular.module("myApp")
         function (response) { console.error('Error occurred:', response.status, response.data);   });
     }
 
-    $scope.predicate = function( categoryFilter ) {
-        return function( item ) {
-          return !categoryFilter || item.category === categoryFilter;
-        };
-      };
-
-    $scope.sortBy = function(propertyName) {
-        $scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
-        $scope.propertyName = propertyName;
-      };
+    $scope.objectKeys = function(obj){
+        return Object.keys(obj);
+      }
+    
+    $scope.saveOrder = function(){
+        tableJson = JSON.parse(angular.toJson($scope.filteredPois))
+        newOrder=[]
+        for(var i=0;i<tableJson.length;i++){
+            name=tableJson[i].poiName
+            newOrder.push(name)
+        }
+        $window.localStorage.setItem('vacation-favorites-'+userName, newOrder.toString());
+    }
+    $scope.sort = function (column) {
+        if(column=="category" || column=="poiName"){
+            $scope.favorites.sort(function(a, b){
+                if(a[column] < b[column]) return -1;
+                if(a[column] > b[column]) return 1;
+                return 0;
+              });
+        } 
+        else
+            $scope.favorites.sort((a, b) => b[column] - a[column]);
+    }
 
       $scope.acceptReview = function(userReview){
         dateReview = getDate();
@@ -136,6 +176,49 @@ angular.module("myApp")
         function (response) { console.error('Error occurred:', response.status, response.data);   });
     }
 
+    $scope.saveFavoritePoints = function(){
+        for(var i=0;i<$scope.favorites.length;i++){
+            found=false;
+            for(var j=0;j<$scope.current.length;j++){
+                if($scope.favorites[i].poiName == $scope.current[j].poiName){
+                    found=true;
+                    break;
+                }
+            }
+            if(!found){
+            $http({
+                method: "PUT",
+                url: "http://localhost:3000/users/addFavoritePOI",
+                headers: {
+                    'x-auth-token': token
+                },
+                data: {
+                    poiName: $scope.favorites[i].poiName
+                }
+            }).then(function (res) {
+            }, function (response) {
+            });
+        }
+        }
+
+        for(var i=0;i<$scope.current.length;i++){
+            found=false;
+            for(var j=0;j<$scope.favorites.length;j++){
+                if($scope.favorites[j].poiName == $scope.current[i].poiName){
+                    found=true;
+                    break;
+                }
+            }
+            if(!found){
+                $http.delete('http://localhost:3000/users/removeFavoritePOI', {data: {'poiName':$scope.current[i].poiName},headers: {'x-auth-token': token,'Content-Type': 'application/json;charset=utf-8'}})
+                .then(function (response) {
+                }, function (response) {
+                    console.log(response)
+                });
+        }
+        }
+    }
+
 
     function getDate (){
         today = new Date();
@@ -147,41 +230,4 @@ angular.module("myApp")
         if(mm<10) mm='0'+mm;
         return (mm+"/"+dd+"/"+yyyy);
     };
-
-app.filter('unique', function () {
-
-  return function (items, filterOn) {
-      if (filterOn === false) {
-          return items;
-      }
-      if ((filterOn || angular.isUndefined(filterOn)) && angular.isArray(items)) {
-          var hashCheck = {}, newItems = [];
-
-          var extractValueToCompare = function (item) {
-              if (angular.isObject(item) && angular.isString(filterOn)) {
-                  return item[filterOn];
-              } else {
-                  return item;
-              }
-          };
-
-          angular.forEach(items, function (item) {
-              var valueToCheck, isDuplicate = false;
-
-              for (var i = 0; i < newItems.length; i++) {
-                  if (angular.equals(extractValueToCompare(newItems[i]), extractValueToCompare(item))) {
-                      isDuplicate = true;
-                      break;
-                  }
-              }
-              if (!isDuplicate) {
-                  newItems.push(item);
-              }
-
-          });
-          items = newItems;
-      }
-      return items;
-  };
-});
 });

@@ -8,6 +8,9 @@ angular.module("myApp")
     else{
         $scope.loggedIn=false;
     }
+    existing = $window.localStorage.getItem('vacation-favorites-' + userName)
+    existing = existing ? existing.split(',') : [];
+    $scope.$root.favoritesNumber=existing.length;
     pointName = "";
     $scope.favorite = "glyphicon glyphicon-heart-empty";
     $http.get('http://localhost:3000/poi/getAll').then(function (response){
@@ -30,13 +33,15 @@ angular.module("myApp")
         if (heart === "glyphicon glyphicon-heart-empty"){
             addToFavorites(pointName);
             $window.alert("The point was added to the favorites successfully!");
-            location.reload();
         }
         else{
             removeFromFavorites(pointName);
             $window.alert("The point was removed from the favorites successfully!");
-            location.reload();
         }
+        tempFavorites = $window.localStorage.getItem('vacation-favorites-'+userName)
+        $scope.favorites = tempFavorites ? tempFavorites.split(',') : [];
+        $scope.$root.favoritesNumber=existing.length;
+
     }
     $scope.openPOIPage = function (poiName){
         pointName = poiName.poiName;
@@ -84,6 +89,7 @@ angular.module("myApp")
             return ((!searchString || item.poiName.toLowerCase().indexOf(searchString) !== -1) && (!categoryFilter) || item.category === categoryFilter);
         };
       };
+      
 
       $scope.sortBy = function(propertyName) {
         $scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
@@ -100,7 +106,7 @@ app.filter('unique', function () {
       }
 
       if ((filterOn || angular.isUndefined(filterOn)) && angular.isArray(items)) {
-          var hashCheck = {}, newItems = [];
+          var newItems = [];
 
           var extractValueToCompare = function (item) {
               if (angular.isObject(item) && angular.isString(filterOn)) {

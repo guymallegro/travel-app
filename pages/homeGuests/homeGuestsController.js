@@ -1,9 +1,10 @@
 angular.module("myApp")
-  .controller("homeGuestsController", function ($scope, $http, $location, $window) {
+  .controller("homeGuestsController", function ($scope, $http, $location, $window, $route) {
     $scope.$root.currentUser = "Guest";
     $scope.$root.favoritesNumber = "";
     $http.get('http://localhost:3000/poi/getAll').then(function (response) {
     result = response.data;
+    
       var points = []
       for (i = 0; i < result.length; i++) {
         if (result[i].rank > 3) {
@@ -57,6 +58,8 @@ angular.module("myApp")
       $window.sessionStorage.clear();
       $scope.currentUser = "Guest";
       $location.url("/homeGuests");
+      $window.location.reload();
+
     }
 
   });

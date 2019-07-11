@@ -2,6 +2,12 @@ angular.module("myApp")
     .controller("homeUsersController", function ($scope, $http, $window, $location) {
         var userName = $window.sessionStorage.getItem('vacation-user-name');
         var token = $window.sessionStorage.getItem('vacation-token');
+        if(!token){
+            $location.url("/homeGuests");
+        }
+        existing = $window.localStorage.getItem('vacation-favorites-' + userName)
+        existing = existing ? existing.split(',') : [];
+        $scope.$root.favoritesNumber=existing.length;
         $http({
             method: "POST",
             url: "http://localhost:3000/users/getRecommendation",
@@ -11,7 +17,7 @@ angular.module("myApp")
         }).then(function (response) {
             ans = response.data;
             $scope.recommend_1 = ans[0];
-            $scope.recommend_2 = ans[5];
+            $scope.recommend_2 = ans[1];
             setSaved();
         }, function (response) {
             console.error('Error occurred:', response.status, response.data);
@@ -20,7 +26,7 @@ angular.module("myApp")
         function setSaved() {
             existing = $window.localStorage.getItem('vacation-favorites-' + userName)
             existing = existing ? existing.split(',') : [];
-            getSavedPOIImages(existing[0], existing[1]);
+            getSavedPOIImages(existing[existing.length -1], existing[existing.length -2]);
         }
 
         function getSavedPOIImages(poi_1, poi_2) {
@@ -35,4 +41,6 @@ angular.module("myApp")
                     console.error('Error occurred:', response.status, response.data);
                 })
         }
+
+        
     });
