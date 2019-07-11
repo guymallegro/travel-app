@@ -57,7 +57,7 @@
       padding-top: 12px;
       padding-bottom: 8px;
       text-align: left;
-      background-color: rgb(163, 41, 39);
+      background-color: rgb(255,165,0);
       color: white;
       cursor: pointer;
     }
@@ -83,14 +83,19 @@
       font-size: 24px;
       color: #d17581;
     }
+
+    #buttons{
+      text-align:center
+    }
   </style>
 
 </head>
 
 <body>
-  <button ng-click="saveFavoritePoints()">Save favorite points</button>
-  <button ng-click="saveOrder()">Save order</button>
-
+  <div id="buttons">
+  <button class="btn btn-warning btn-lg" ng-click="saveFavoritePoints()">Save favorite points</button>
+  <button class="btn btn-warning btn-lg" ng-click="saveOrder()">Save order</button>
+</div>
   <table width="100%" class="table" id="poi">
     <thead>
       <tr>

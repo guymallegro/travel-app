@@ -46,7 +46,7 @@ margin: 0 auto;
   padding-top: 12px;
   padding-bottom: 8px;
   text-align: left;
-  background-color: rgb(163, 41, 39);
+  background-color: rgb(255,165,0);
   color: white;
   cursor: pointer;
 }
@@ -66,7 +66,6 @@ select {
                 ng-repeat="poi in pois | unique: 'category'" 
                 value="{{poi.category}}">{{poi.category}}</option>
     </select>
-    <button class="btn btn-danger btn-lg" ng-click="sortBy('rank')">Sort by rank</button>
     <input type="text" ng-model="searchString" placeholder="Enter to search by name" />
   </div>
   <table width="100%" class="table" id="poi">
