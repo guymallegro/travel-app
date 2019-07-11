@@ -94,7 +94,6 @@ angular.module("myApp")
     }
 
     $scope.setRank = function (userRank){
-        for(var i=0;i<2;i++){
         token = $window.sessionStorage.getItem('vacation-token');
         $http({
             method: "PUT",
@@ -108,7 +107,6 @@ angular.module("myApp")
             }
         }).then(function (res) { $scope.rankMessage ="your rank: " + userRank },
         function (response) { console.error('Error occurred:', response.status, response.data);   });
-    }
     }
 
     $scope.objectKeys = function(obj){
