@@ -40,7 +40,7 @@ angular.module("myApp")
                     $scope.saved_1 = result[index_1];
                     if (result[index_1] == null){
                         $scope.haveFavorites1 = false;
-                        $scope.noSaved = "You haven't saved any points of interest, let's go!"
+                        $scope.recommend_1.poiName = "You haven't saved any points of interest, find YOUR place"
                     }
                     $scope.saved_2 = result[index_2];
                     if (result[index_2] == null){

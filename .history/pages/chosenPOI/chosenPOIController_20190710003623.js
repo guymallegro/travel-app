@@ -23,7 +23,7 @@ angular.module("myApp")
       console.error('Error occurred:', response.status, response.data);
     });
 
-    var token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoic2Fwc2FwIiwiaWF0IjoxNTYyODY2MjM4LCJleHAiOjE1NjI5NTI2Mzh9.YYXcd13jNRuMeyf-BrWcfveMEfsvfMyWst1bDJfufCI';
+    var token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoic2Fwc2FwIiwiaWF0IjoxNTYyNTE5MTA1LCJleHAiOjE1NjI2MDU1MDV9.lYaC7UNigoAJ7uTfz_0cO-prXwuZtay1zlJ7l4-gk2M';
     function updateWatches (see,name){
         $http({
             method: "PUT",

@@ -38,14 +38,7 @@ angular.module("myApp")
                     let index_1 = result.findIndex(poi1 => poi1.poiName === poi_1);
                     let index_2 = result.findIndex(poi2 => poi2.poiName === poi_2);
                     $scope.saved_1 = result[index_1];
-                    if (result[index_1] == null){
-                        $scope.haveFavorites1 = false;
-                        $scope.noSaved = "You haven't saved any points of interest, let's go!"
-                    }
                     $scope.saved_2 = result[index_2];
-                    if (result[index_2] == null){
-                        $scope.haveFavorites2 = false;
-                    }
                 }, function (response) {
                     console.error('Error occurred:', response.status, response.data);
                 })

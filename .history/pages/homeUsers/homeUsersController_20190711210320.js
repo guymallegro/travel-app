@@ -40,11 +40,11 @@ angular.module("myApp")
                     $scope.saved_1 = result[index_1];
                     if (result[index_1] == null){
                         $scope.haveFavorites1 = false;
-                        $scope.noSaved = "You haven't saved any points of interest, let's go!"
                     }
                     $scope.saved_2 = result[index_2];
                     if (result[index_2] == null){
                         $scope.haveFavorites2 = false;
+                        $scope.recommend_1.poiName = "You haven't saved any points of interest, let's go!"
                     }
                 }, function (response) {
                     console.error('Error occurred:', response.status, response.data);

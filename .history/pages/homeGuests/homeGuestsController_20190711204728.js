@@ -58,7 +58,6 @@ angular.module("myApp")
       $scope.currentUser = "Guest";
       $location.url("/homeGuests");
       $window.location.reload();
-      $window.sessionStorage.clear();
     }
 
   });

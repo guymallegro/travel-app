@@ -70,6 +70,7 @@
         <div class="row">
             <h2 style="text-align: center"><b> Recommened for you</b></h2>
             <div class="col-md-6">
+                <!-- <h2 class="glyphicon glyphicon-heart">{{recommends[0].poiName}}</h2> -->
                 <h2 class="glyphicon glyphicon-heart" style="text-size-adjust: 14">{{recommend_1.poiName}}</h2>
                 <div class="hover">
                     <img ng-src="{{recommend_1.image}}" width="350" height="350"
@@ -89,17 +90,16 @@
             </br>
             <h2 style="text-align: center"><b> You Recently saved</b></h2>
             <div class="col-md-6">
-                <h2 ng-show="haveFavorites1" class="glyphicon glyphicon-heart">{{saved_1.poiName}}</h2>
-                <h2 ng-hide="haveFavorites1">{{noSaved}}</h2>
+                <h2 class="glyphicon glyphicon-heart">{{saved_1.poiName}}</h2>
                 <div class="hover">
-                    <img ng-show="haveFavorites1" ng-src="{{saved_1.image}}" width="350" height="350"
+                    <img ng-show="haveFavorites" ng-src="{{saved_1.image}}" width="350" height="350"
                         ng-click="poi = saved_1; openPOIPage(poi)">
                 </div>
             </div>
             <div class="col-md-6">
-                <h2 ng-show="haveFavorites2" class="glyphicon glyphicon-heart">{{saved_2.poiName}}</h2>
+                <h2 class="glyphicon glyphicon-heart">{{saved_2.poiName}}</h2>
                 <div class="hover">
-                    <img ng-show="haveFavorites2" ng-src="{{saved_2.image}}" width="350" height="350"
+                    <img ng-src="{{saved_2.image}}" width="350" height="350"
                         ng-click="poi = saved_2; openPOIPage(poi)">
                 </div>
             </div>
