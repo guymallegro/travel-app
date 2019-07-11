@@ -13,7 +13,7 @@ angular.module("myApp")
             $scope.$root.currentUser=userName;
             location.reload();
         }).catch(function(response) {
-            $scope.incorrect = "The given password/username is incorrect. pleasr try again";
+            $scope.incorrect = "The given password/username is incorrect.";
           console.error('Error occurred:', response.status, response.data);
         }).finally(function() {
              console.log("Task Finished.");
