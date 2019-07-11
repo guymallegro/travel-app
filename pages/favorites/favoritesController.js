@@ -8,7 +8,7 @@ angular.module("myApp")
     $scope.reverse=false;
     $http.get('http://localhost:3000/poi/getAll').then(function (response){
             result = response.data;
-            deleteNotFavorite(result)
+            result=deleteNotFavorite(result)
             result.forEach(clean);
             $scope.favorites = result;
             $scope.propertyName = 'rank';
@@ -17,6 +17,21 @@ angular.module("myApp")
         }).finally(function() {
              console.log("Task Finished.");
         });
+
+    $http({
+            method: "POST",
+            url: "http://localhost:3000/users/getFavorites",
+            headers: {
+                'x-auth-token': token
+            }
+        }).then(function (response){
+                $scope.current=response.data;
+            }).catch(function(response) {
+              console.error('Error occurred:', response.status, response.data);
+            }).finally(function() {
+                 console.log("Task Finished.");
+            });
+
 
     $scope.openPOIPage = function (poiName){
         pointName = poiName.poiName;
@@ -38,6 +53,9 @@ angular.module("myApp")
 
         }
         $window.localStorage.setItem('vacation-favorites-'+userName, existing.toString());
+        existing = $window.localStorage.getItem('vacation-favorites-' + userName)
+        existing = existing ? existing.split(',') : [];
+        $scope.$root.favoritesNumber=existing.length;
     }
 
     function clean(value) {
@@ -72,7 +90,7 @@ angular.module("myApp")
                 }
             }
         }
-        points=afterOrder;
+        return afterOrder;
     }
 
     $scope.setRank = function (userRank){
@@ -91,12 +109,7 @@ angular.module("myApp")
         function (response) { console.error('Error occurred:', response.status, response.data);   });
     }
 
-    $scope.sortBy = function(propertyName) {
-        $scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
-        $scope.propertyName = propertyName;
-      };
-
-      $scope.objectKeys = function(obj){
+    $scope.objectKeys = function(obj){
         return Object.keys(obj);
       }
     
@@ -108,6 +121,17 @@ angular.module("myApp")
             newOrder.push(name)
         }
         $window.localStorage.setItem('vacation-favorites-'+userName, newOrder.toString());
+    }
+    $scope.sort = function (column) {
+        if(column=="category" || column=="poiName"){
+            $scope.favorites.sort(function(a, b){
+                if(a[column] < b[column]) return -1;
+                if(a[column] > b[column]) return 1;
+                return 0;
+              });
+        } 
+        else
+            $scope.favorites.sort((a, b) => b[column] - a[column]);
     }
 
       $scope.acceptReview = function(userReview){
@@ -152,6 +176,49 @@ angular.module("myApp")
             }
         }).then(function (res) { },
         function (response) { console.error('Error occurred:', response.status, response.data);   });
+    }
+
+    $scope.saveFavoritePoints = function(){
+        for(var i=0;i<$scope.favorites.length;i++){
+            found=false;
+            for(var j=0;j<$scope.current.length;j++){
+                if($scope.favorites[i].poiName == $scope.current[j].poiName){
+                    found=true;
+                    break;
+                }
+            }
+            if(!found){
+            $http({
+                method: "PUT",
+                url: "http://localhost:3000/users/addFavoritePOI",
+                headers: {
+                    'x-auth-token': token
+                },
+                data: {
+                    poiName: $scope.favorites[i].poiName
+                }
+            }).then(function (res) {
+            }, function (response) {
+            });
+        }
+        }
+
+        for(var i=0;i<$scope.current.length;i++){
+            found=false;
+            for(var j=0;j<$scope.favorites.length;j++){
+                if($scope.favorites[j].poiName == $scope.current[i].poiName){
+                    found=true;
+                    break;
+                }
+            }
+            if(!found){
+                $http.delete('http://localhost:3000/users/removeFavoritePOI', {data: {'poiName':$scope.current[i].poiName},headers: {'x-auth-token': token,'Content-Type': 'application/json;charset=utf-8'}})
+                .then(function (response) {
+                }, function (response) {
+                    console.log(response)
+                });
+        }
+        }
     }
 
 

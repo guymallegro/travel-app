@@ -13,6 +13,7 @@ app.config(function($routeProvider,$windowProvider)  {
     
     $routeProvider
         .when('/', {
+            cache: false,
             templateUrl: function() {
                 return loggedIn ? 'pages/homeUsers/homeUsers.html' : 'pages/homeGuests/homeGuests.html';
               },
